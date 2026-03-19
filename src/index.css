@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
+
+@import "tailwindcss";
+
+body {
+  font-family: 'Caveat Brush', cursive;
+  background-color: var(--color-brand-beige);
+  color: #2d3748;
+  font-size: 1.15rem;
+  /* Handwriting fonts usually read smaller */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Caveat Brush', cursive;
+}
+
+@theme {
+  --color-brand-pink: #FF9B9B;   /* for nav links */
+  --color-brand-green: #3B6B4A;  /* hunter green */
+  --color-brand-beige: #FDF8F5;   /* for font */
+  --color-brand-dark: #2d3748;
+  --color-brand-white: #ffffff;
+
+  --animate-fade-in: fadeIn 0.5s ease-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
