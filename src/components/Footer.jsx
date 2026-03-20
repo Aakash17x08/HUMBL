@@ -11,10 +11,9 @@ const Footer = () => {
         {/* Logo + Contact */}
         <div>
           <div className="flex items-center gap-3 mb-6">
-            <div className="bg-brand-white p-2 rounded-full shadow-sm">
+            <div className="bg-brand-white p-2.5 rounded-full shadow-sm">
               <img src={logo} alt="Humbl. Logo" className="w-8 h-8 object-contain" />
             </div>
-            <h2 className="text-brand-white text-2xl font-bold tracking-tight uppercase tracking-widest italic">HUMBL.</h2>
           </div>
 
           <div className="mb-6 opacity-80">
@@ -31,9 +30,9 @@ const Footer = () => {
           <h3 className="text-brand-white font-bold mb-4 uppercase text-xs tracking-widest">Product</h3>
           <ul className="space-y-3 font-medium opacity-80">
             <li>
-              <Link to="/subscription" className="hover:text-brand-pink transition-colors cursor-pointer">
+              <a href="#subscription" className="hover:text-brand-pink transition-colors cursor-pointer">
                 Subscription
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
@@ -48,7 +47,7 @@ const Footer = () => {
               <li className="hover:text-brand-pink transition-colors cursor-pointer">Cookie Policy</li>
             </ul>
           </div>
-          
+
           <div className="mt-12 text-sm font-medium opacity-60">
             <p>© 2026 Humbl. All rights reserved.</p>
           </div>

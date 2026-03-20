@@ -2,20 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingBag } from 'lucide-react';
 import logo from '../assets/logo/logo.svg';
+import logo_no_bg from '../assets/logo/logo_no_bg.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [cartCount, setCartCount] = useState(0); 
+  const [activeSection, setActiveSection] = useState('home');
+  const [cartCount, setCartCount] = useState(0);
   const location = useLocation();
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      // Scroll Spy logic
+      const sections = ['home', 'products', 'about', 'subscription', 'blogs', 'contact'];
+      const scrollPos = window.scrollY + 150;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element && scrollPos >= element.offsetTop && scrollPos < element.offsetTop + element.offsetHeight) {
+          setActiveSection(section);
+        }
+      }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -24,47 +33,42 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/products', label: 'Products' },
-    { path: '/subscription', label: 'Subscription' },
-    { path: '/blogs', label: 'Blogs' },
-    { path: '/contact', label: 'Contact' },
+    { id: 'home', label: 'Home' },
+    { id: 'products', label: 'Products' },
+    { id: 'about', label: 'About' },
+    { id: 'subscription', label: 'Subscription' },
+    { id: 'blogs', label: 'Blogs' },
+    { id: 'contact', label: 'Contact' },
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out border-b border-black/5 ${
-      scrolled 
-        ? 'h-[70px] shadow-sm bg-white/95 backdrop-blur-md' 
-        : 'h-[80px] bg-white/85 backdrop-blur-md'
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled
+      ? 'h-[70px] shadow-lg bg-brand-green/95 backdrop-blur-md'
+      : 'h-[90px] bg-brand-green'
       }`}
     >
       <div className="flex justify-between items-center w-full max-w-7xl mx-auto px-4 sm:px-8 h-full">
-        
-        {/* Left Section: Logo */}
+
+        {/* Left Section: Logo Only */}
         <div className="flex-1 flex items-center justify-start">
-          <Link to="/" className="shrink-0 flex items-center">
-            <img src={logo} alt="Humbl. Logo" className="h-14 w-auto" />
-          </Link>
+          <a href="#home" className="shrink-0 flex items-center gap-2">
+            <div className="p-2 sm:p-3 rounded-full transform hover:scale-110 transition-transform">
+              <img src={logo_no_bg} alt="Humbl. Logo" className="h-8 sm:h-15 w-auto invert" />
+            </div>
+          </a>
         </div>
 
         {/* Center Section: Centered Nav Links (Desktop) */}
         <div className="hidden md:flex flex-[2] justify-center items-center">
-          <ul className="flex flex-row space-x-1">
+          <ul className="flex flex-row space-x-2">
             {navLinks.map((link) => (
-              <li key={link.path}>
-                <NavLink 
-                  to={link.path} 
-                  className={({ isActive }) => `
-                    px-4 py-2 text-lg font-medium transition-all duration-200 rounded-lg
-                    ${isActive 
-                      ? 'text-brand-pink font-bold bg-brand-pink/10 opacity-100' 
-                      : 'text-gray-600 hover:text-brand-green hover:bg-brand-green/5'
-                    }
-                  `}
+              <li key={link.id}>
+                <a
+                  href={`#${link.id}`}
+                  className={`nav-link ${activeSection === link.id ? 'nav-link-active' : ''}`}
                 >
                   {link.label}
-                </NavLink>
+                </a>
               </li>
             ))}
           </ul>
@@ -72,44 +76,39 @@ const Navbar = () => {
 
         {/* Right Section: Toggle, Cart & Action */}
         <div className="flex-1 flex items-center justify-end gap-5">
-          <NavLink 
-            to="/cart" 
-            className={({ isActive }) => `
-              relative p-2 transition-all group rounded-full
-              ${isActive ? 'text-brand-pink bg-brand-pink/10' : 'text-brand-dark hover:text-brand-pink hover:bg-black/5'}
-            `}
+          <Link
+            to="/cart"
+            className="relative p-2 transition-all rounded-full text-white hover:bg-white/10"
           >
-            <ShoppingBag size={26} strokeWidth={2.5} />
-            <span className="absolute -top-0.5 -right-0.5 bg-brand-pink text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold border-2 border-white transform group-hover:scale-110 transition-transform">
+            <ShoppingBag size={24} strokeWidth={2.5} />
+            <span className="absolute -top-1 -right-1 bg-brand-pink text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold border-2 border-brand-green">
               {cartCount}
             </span>
-          </NavLink>
+          </Link>
 
-          <div className="md:hidden cursor-pointer text-brand-dark hover:text-brand-pink transition-colors" onClick={toggleMenu}>
-            {isOpen ? <X size={30} /> : <Menu size={30} />}
+          <div className="md:hidden cursor-pointer text-white hover:opacity-80 transition-opacity" onClick={toggleMenu}>
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
           </div>
         </div>
 
         {/* Mobile Slide-down Menu */}
-        <div className={`${isOpen 
-          ? `flex flex-col absolute ${scrolled ? 'top-[70px]' : 'top-[80px]'} left-0 w-full bg-white h-[calc(100vh-${scrolled ? '70px' : '80px'})] shadow-2xl py-8 overflow-y-auto animate-fade-in` 
+        <div className={`${isOpen
+          ? `flex flex-col absolute ${scrolled ? 'top-[70px]' : 'top-[90px]'} left-0 w-full bg-brand-green/95 backdrop-blur-md h-[calc(100vh-90px)] shadow-2xl py-8 overflow-y-auto animate-fade-in`
           : 'hidden'
-        }`}>
-          <ul className="flex flex-col items-center gap-2">
+          }`}>
+          <ul className="flex flex-col items-center gap-4">
             {navLinks.map((link) => (
-              <li className="w-full text-center" key={link.path}>
-                <NavLink 
-                  to={link.path} 
-                  className={({ isActive }) => `
-                    inline-block w-full px-8 py-5 text-3xl font-medium transition-all duration-300
-                    ${isActive 
-                      ? 'text-brand-pink font-bold bg-brand-pink/5' 
-                      : 'text-gray-600 hover:text-brand-green'
-                    }
+              <li className="w-full text-center" key={link.id}>
+                <a
+                  href={`#${link.id}`}
+                  onClick={() => setIsOpen(false)}
+                  className={`
+                    inline-block w-full px-8 py-4 text-3xl font-bold transition-all text-white
+                    ${activeSection === link.id ? 'bg-white/10' : 'hover:bg-white/5'}
                   `}
                 >
                   {link.label}
-                </NavLink>
+                </a>
               </li>
             ))}
           </ul>

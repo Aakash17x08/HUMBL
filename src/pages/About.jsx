@@ -2,15 +2,15 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="bg-[#f6f3ef] min-h-screen">
+    <section id="about" className="bg-brand-pink min-h-screen text-brand-green pt-32 pb-20">
       
       {/* HEADER */}
-      <div className="text-center pt-24 pb-16">
-        <h1 className="text-5xl font-bold text-gray-800 mb-4">
-          About Us
+      <div className="text-center pb-16">
+        <h1 className="text-6xl font-black italic tracking-tighter mb-4">
+          About Us<span className="text-white">.</span>
         </h1>
-        <p className="text-gray-500">
-          Learn more about our mission and values.
+        <p className="text-brand-green/70 font-bold uppercase tracking-widest text-sm text-center">
+          Fresh. Wholesome. Humbl.
         </p>
       </div>
 
@@ -35,7 +35,7 @@ const About = () => {
           prioritizes health, convenience, and consistency.
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 

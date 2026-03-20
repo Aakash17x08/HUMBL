@@ -17,14 +17,18 @@ function App() {
     <Router>
       <div className="flex flex-col min-h-screen">
         <Navbar />
-        <main className="flex-1 flex flex-col pt-[80px]">
+        <main className="flex-1 flex flex-col">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/subscription" element={<Subscription />} />
+            <Route path="/" element={
+              <>
+                <Home />
+                <Products />
+                <About />
+                <Subscription />
+                <Blogs />
+                <Contact />
+              </>
+            } />
             <Route path="/cart" element={<Cart />} />
           </Routes>
         </main>

@@ -94,114 +94,116 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-[#f5f5f5] min-h-screen flex items-center justify-center pt-28 pb-12 lg:py-0">
-      <div className="w-[92%] max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-0">
+    <section id="home" className="bg-brand-pink min-h-screen flex items-center justify-center pt-32 pb-12 transition-colors duration-500">
+      <div className="w-[94%] max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
         
-        {/* LEFT */}
+        {/* LEFT SECTION */}
         <div className="max-w-xl text-center lg:text-left flex flex-col items-center lg:items-start">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-            B<span className="text-green-600">O</span>WL'S
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-black italic tracking-tighter text-brand-green mb-6">
+            B<span className="text-white">O</span>WL'S
           </h1>
 
-          <p className="text-gray-600 mb-6 text-sm sm:text-base md:text-lg max-w-md lg:max-w-none">
+          <p className="text-brand-green font-medium mb-8 text-sm sm:text-base md:text-lg max-w-md lg:max-w-none opacity-80 italic">
             Fresh vegetarian bowls crafted for your lifestyle — packed with
-            protein-rich paneer, chickpeas, greens, and bold Indian flavors.
+            protein-rich ingredients and bold Indian flavors.
           </p>
 
-          <button className="bg-green-600 text-white px-8 py-3.5 rounded-full shadow-lg hover:bg-green-700 transition-all transform hover:scale-105 active:scale-95 font-semibold">
+          <button className="btn-primary mb-16">
             Start Order
           </button>
 
-          {/* PRODUCTS */}
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-4 gap-y-12 sm:gap-6 mt-16 justify-items-center justify-center lg:justify-start w-full">
+          {/* PRODUCTS LIST */}
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-6 gap-y-16 sm:gap-8 justify-items-center justify-center lg:justify-start w-full">
             {products.map((item, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl shadow-md p-4 w-32 sm:w-36 text-center transition-transform hover:-translate-y-1"
+                className="product-card w-36 sm:w-40"
               >
-                <img
-                  src={`${item.image}?w=200`}
-                  alt={item.name}
-                  className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-full mx-auto -mt-10 border-4 border-white shadow-sm"
-                />
+                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2">
+                  <img
+                    src={`${item.image}?w=200`}
+                    alt={item.name}
+                    className="w-20 h-20 object-cover rounded-full border-2 border-brand-green shadow-sm"
+                  />
+                </div>
 
-                <h3 className="font-semibold text-xs sm:text-sm mt-3">
+                <h3 className="font-bold text-brand-green text-sm sm:text-base mt-2">
                   {item.name}
                 </h3>
-                <p className="text-gray-400 text-[10px] sm:text-xs">{item.type}</p>
-                <p className="font-bold mt-2 text-sm sm:text-base">{item.price}</p>
+                <p className="text-gray-500 text-[10px] sm:text-xs font-semibold">{item.type}</p>
+                <p className="font-bold text-brand-pink text-sm sm:text-lg mt-1">{item.price}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* RIGHT SLIDER */}
+        {/* RIGHT SLIDER SECTION */}
         <div className="relative flex flex-col items-center w-full lg:w-auto">
           
-          {/* GREEN BG */}
-          <div className="absolute w-64 h-64 sm:w-80 sm:h-80 bg-green-500 rounded-full -z-10 opacity-20 blur-2xl lg:opacity-100 lg:blur-none lg:bg-green-500"></div>
+          {/* IMAGE GLOW */}
+          <div className="absolute w-64 h-64 sm:w-96 sm:h-96 bg-brand-green rounded-full -z-10 opacity-20 blur-[80px]"></div>
 
-          {/* IMAGE */}
-          <div className="relative">
+          {/* MAIN IMAGE */}
+          <div className="relative group">
              <img
-              src={`${bowls[current].image}?w=500`}
+              src={`${bowls[current].image}?w=600`}
               alt="bowl"
-              className="w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[400px] md:h-[400px] object-cover rounded-full shadow-2xl transition-all duration-500 transform hover:rotate-3"
+              className="w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[480px] md:h-[480px] object-cover rounded-full shadow-2xl transition-all duration-700 transform group-hover:rotate-6 sm:border-8 border-brand-green/10"
             />
           </div>
 
-          {/* MACROS */}
-          <div className="mt-8 bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 w-[280px] sm:w-80 text-center border border-white/20">
-            <h3 className="font-bold text-lg mb-4 text-gray-800">
+          {/* MACROS CARD */}
+          <div className="macros-card mt-12">
+            <h3 className="font-black text-brand-green text-xl mb-6 italic">
               {bowls[current].name}
             </h3>
 
-            <div className="flex justify-between text-xs sm:text-sm text-gray-600">
+            <div className="flex justify-between items-center">
               <div className="flex flex-col items-center">
-                <p className="font-black text-green-600 text-base sm:text-lg">
+                <p className="font-black text-brand-pink text-xl">
                   {bowls[current].macros.calories}
                 </p>
-                <p className="uppercase tracking-tighter font-semibold opacity-60">Cals</p>
+                <p className="uppercase text-[10px] font-black text-gray-500 tracking-widest">Cals</p>
               </div>
-              <div className="flex flex-col items-center border-l border-gray-100 pl-3 sm:pl-4">
-                <p className="font-black text-gray-800 text-base sm:text-lg">
+              <div className="flex flex-col items-center border-l-2 border-brand-green/10 pl-4">
+                <p className="font-black text-brand-green text-xl">
                   {bowls[current].macros.protein}
                 </p>
-                <p className="uppercase tracking-tighter font-semibold opacity-60">Prot</p>
+                <p className="uppercase text-[10px] font-black text-gray-500 tracking-widest">Prot</p>
               </div>
-              <div className="flex flex-col items-center border-l border-gray-100 pl-3 sm:pl-4">
-                <p className="font-black text-gray-800 text-base sm:text-lg">
+              <div className="flex flex-col items-center border-l-2 border-brand-green/10 pl-4">
+                <p className="font-black text-brand-green text-xl">
                   {bowls[current].macros.carbs}
                 </p>
-                <p className="uppercase tracking-tighter font-semibold opacity-60">Carb</p>
+                <p className="uppercase text-[10px] font-black text-gray-500 tracking-widest">Carb</p>
               </div>
-              <div className="flex flex-col items-center border-l border-gray-100 pl-3 sm:pl-4">
-                <p className="font-black text-gray-800 text-base sm:text-lg">
+              <div className="flex flex-col items-center border-l-2 border-brand-green/10 pl-4">
+                <p className="font-black text-brand-green text-xl">
                   {bowls[current].macros.fat}
                 </p>
-                <p className="uppercase tracking-tighter font-semibold opacity-60">Fat</p>
+                <p className="uppercase text-[10px] font-black text-gray-500 tracking-widest">Fat</p>
               </div>
             </div>
           </div>
 
-          {/* CONTROLS */}
-          <div className="flex gap-6 mt-6">
+          {/* SLIDER CONTROLS */}
+          <div className="flex gap-4 mt-8">
             <button
               onClick={prevSlide}
-              className="bg-white p-3 rounded-full shadow-lg hover:bg-gray-50 transition-all hover:scale-110 active:scale-90 text-gray-800"
+              className="bg-brand-green text-white p-3.5 rounded-full shadow-lg hover:bg-brand-dark transition-all hover:scale-110 active:scale-90"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
             <button
               onClick={nextSlide}
-              className="bg-white p-3 rounded-full shadow-lg hover:bg-gray-50 transition-all hover:scale-110 active:scale-90 text-gray-800"
+              className="bg-brand-green text-white p-3.5 rounded-full shadow-lg hover:bg-brand-dark transition-all hover:scale-110 active:scale-90"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

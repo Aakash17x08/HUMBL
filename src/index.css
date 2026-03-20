@@ -2,6 +2,14 @@
 
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 90px;
+}
+
 body {
   font-family: 'Caveat Brush', cursive;
   background-color: var(--color-brand-beige);
@@ -20,10 +28,10 @@ h6 {
 }
 
 @theme {
-  --color-brand-pink: #FF9B9B;   /* for nav links */
-  --color-brand-green: #3B6B4A;  /* hunter green */
-  --color-brand-beige: #FDF8F5;   /* for font */
-  --color-brand-dark: #2d3748;
+  --color-brand-pink: #f9c0c3;
+  --color-brand-green: #2d5a41;
+  --color-brand-beige: #fee5e7;
+  --color-brand-dark: #1e3a2b;
   --color-brand-white: #ffffff;
 
   --animate-fade-in: fadeIn 0.5s ease-out;
@@ -33,10 +41,31 @@ h6 {
       opacity: 0;
       transform: translateY(15px);
     }
-
     to {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply px-4 py-2 text-lg font-bold transition-all duration-200 rounded-lg text-white hover:bg-white/10;
+  }
+  
+  .nav-link-active {
+    @apply bg-white/20 text-white shadow-sm;
+  }
+
+  .btn-primary {
+    @apply bg-brand-green text-white px-8 py-3.5 rounded-full shadow-lg hover:opacity-90 transition-all transform hover:scale-105 active:scale-95 font-bold;
+  }
+
+  .product-card {
+    @apply bg-brand-beige rounded-2xl border-2 border-brand-green p-4 text-center relative pt-10 transition-transform hover:-translate-y-1;
+  }
+
+  .macros-card {
+    @apply bg-brand-beige rounded-2xl shadow-xl p-6 w-full max-w-sm text-center border-2 border-brand-green/10;
   }
 }

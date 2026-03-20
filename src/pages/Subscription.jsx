@@ -2,10 +2,10 @@ import React from 'react';
 
 const Subscription = () => {
   return (
-    <div className="max-w-7xl mx-auto px-8 py-16 text-center animate-fade-in">
-      <h1 className="text-[3.5rem] text-brand-dark mb-4 font-extrabold tracking-tight">Subscription</h1>
-      <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">Subscribe to our meal plans (Açaí Bowls, Salads, Smoothies, Regular Meals).</p>
-    </div>
+    <section id="subscription" className="bg-brand-pink min-h-screen flex flex-col justify-center items-center text-center px-8 text-brand-green">
+      <h1 className="text-6xl font-black italic tracking-tighter mb-4">Subscription<span className="text-white">.</span></h1>
+      <p className="text-lg font-medium opacity-80 max-w-2xl mx-auto leading-relaxed italic">Subscribe to our meal plans (Açaí Bowls, Salads, Smoothies, Regular Meals).</p>
+    </section>
   );
 };
 
