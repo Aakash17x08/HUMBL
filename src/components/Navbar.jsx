@@ -39,7 +39,7 @@ const Navbar = () => {
         : 'h-[80px] bg-white/85 backdrop-blur-md'
       }`}
     >
-      <div className="flex justify-between items-center w-full max-w-7xl mx-auto px-8 h-full">
+      <div className="flex justify-between items-center w-full max-w-7xl mx-auto px-4 sm:px-8 h-full">
         
         {/* Left Section: Logo */}
         <div className="flex-1 flex items-center justify-start">
@@ -92,7 +92,7 @@ const Navbar = () => {
 
         {/* Mobile Slide-down Menu */}
         <div className={`${isOpen 
-          ? 'flex flex-col absolute top-[80px] left-0 w-full bg-white/98 backdrop-blur-md h-[calc(100vh-80px)] shadow-2xl py-8 overflow-y-auto animate-fade-in' 
+          ? `flex flex-col absolute ${scrolled ? 'top-[70px]' : 'top-[80px]'} left-0 w-full bg-white h-[calc(100vh-${scrolled ? '70px' : '80px'})] shadow-2xl py-8 overflow-y-auto animate-fade-in` 
           : 'hidden'
         }`}>
           <ul className="flex flex-col items-center gap-2">

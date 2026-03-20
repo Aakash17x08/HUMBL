@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-brand-green text-brand-beige pt-16 pb-12 px-10">
+    <footer className="bg-brand-green text-brand-beige pt-16 pb-12 px-6 sm:px-10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
 
         {/* Logo + Contact */}
@@ -18,11 +18,11 @@ const Footer = () => {
           </div>
 
           <div className="mb-6 opacity-80">
-            <h3 className="text-brand-pink font-bold mb-2 uppercase text-xs tracking-widest">Address</h3>
+            <h3 className="text-white font-bold mb-2 uppercase text-xs tracking-widest">Address</h3>
           </div>
 
           <div className="opacity-80">
-            <h3 className="text-brand-pink font-bold mb-2 uppercase text-xs tracking-widest">Contact</h3>
+            <h3 className="text-white font-bold mb-2 uppercase text-xs tracking-widest">Contact</h3>
           </div>
         </div>
 
