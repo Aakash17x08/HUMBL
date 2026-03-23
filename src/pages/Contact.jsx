@@ -76,7 +76,7 @@ const Contact = () => {
                   <label className="text-xs font-black uppercase tracking-widest text-brand-green/60 ml-2">Your Name</label>
                   <input 
                     type="text" 
-                    placeholder="John Doe"
+                    placeholder="Aakash Maurya"
                     className="w-full bg-white/50 border-2 border-brand-green/5 rounded-2xl py-4 px-6 font-bold italic outline-none focus:border-brand-green transition-all"
                   />
                 </div>
@@ -84,7 +84,7 @@ const Contact = () => {
                   <label className="text-xs font-black uppercase tracking-widest text-brand-green/60 ml-2">Email Address</label>
                   <input 
                     type="email" 
-                    placeholder="john@example.com"
+                    placeholder="Aakash@example.com"
                     className="w-full bg-white/50 border-2 border-brand-green/5 rounded-2xl py-4 px-6 font-bold italic outline-none focus:border-brand-green transition-all"
                   />
                 </div>
