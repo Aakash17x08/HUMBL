@@ -50,7 +50,7 @@ const plans = [
 
 const Subscription = () => {
   return (
-    <section id="subscription" className="bg-slate-50 min-h-screen py-32 px-6 sm:px-12 flex flex-col items-center">
+    <section id="subscription" className="bg-slate-50 min-h-screen py-24 sm:py-32 px-4 sm:px-8 md:px-12 flex flex-col items-center overflow-hidden w-full">
       <div className="max-w-7xl w-full">
         
         {/* Header */}
@@ -68,10 +68,10 @@ const Subscription = () => {
           {plans.map((plan, idx) => (
             <div 
               key={idx} 
-              className={`relative bg-white p-10 rounded-[3.5rem] border-2 flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-4
+              className={`relative bg-white p-8 sm:p-10 rounded-[3rem] sm:rounded-[3.5rem] border-2 flex flex-col items-center text-center transition-all duration-500 md:hover:-translate-y-4
                 ${plan.highlight 
-                  ? "border-brand-green shadow-2xl scale-105 z-10" 
-                  : "border-brand-green/5 shadow-xl opacity-90"
+                  ? "border-brand-green shadow-2xl lg:scale-105 z-10" 
+                  : "border-brand-green/5 shadow-xl md:opacity-90"
                 }`}
             >
               {plan.highlight && (

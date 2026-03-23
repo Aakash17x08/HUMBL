@@ -20,7 +20,7 @@ const popularArticles = [
 
 const Footer = () => {
   return (
-    <footer className="bg-brand-green text-white pt-16 pb-12 px-4 sm:px-10">
+    <footer className="bg-brand-green text-white pt-16 pb-12 px-4 sm:px-10 overflow-hidden w-full">
       <div className="max-w-7xl mx-auto flex flex-col gap-6">
         
         {/* TOP SECTION: Questions & Contact */}

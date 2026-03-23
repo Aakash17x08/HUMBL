@@ -4,7 +4,7 @@ import { blogPosts } from '../data/blogData';
 
 const Blogs = () => {
   return (
-    <section id="blogs" className="bg-brand-pink min-h-screen py-24 px-8 sm:px-16 flex flex-col items-center">
+    <section id="blogs" className="bg-brand-pink min-h-screen py-24 px-4 sm:px-8 md:px-16 flex flex-col items-center overflow-hidden w-full">
       <div className="max-w-7xl w-full">
         {/* Header */}
         <div className="mb-14">

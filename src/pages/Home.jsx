@@ -44,32 +44,32 @@ const Home = () => {
   const prevSlide = () => setCurrent((prev) => (prev - 1 + bowls.length) % bowls.length);
 
   return (
-    <section id="home" className="bg-brand-pink min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden">
-      <div className="w-[94%] max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-16">
+    <section id="home" className="bg-brand-pink min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden w-full">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-12 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
         
         {/* LEFT SECTION */}
-        <div className="flex-1 space-y-10 text-center lg:text-left animate-fade-in">
+        <div className="w-full lg:flex-1 space-y-10 text-center lg:text-left animate-fade-in px-2 sm:px-0">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 bg-brand-green/10 text-brand-green px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest italic">
+            <div className="inline-flex items-center gap-2 bg-brand-green/10 text-brand-green px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest italic mx-auto lg:mx-0">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-green"></span>
               </span>
               Premium Vegetarian Bowls
             </div>
-            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter text-brand-green uppercase leading-[0.9]">
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter text-brand-green uppercase leading-[0.9]">
               Eat <span className="text-white">Fresh</span>,<br />
               Stay <span className="text-white">H</span>umble.
             </h1>
           </div>
 
-          <p className="text-lg sm:text-xl font-medium text-brand-green/80 italic max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          <p className="text-base sm:text-xl font-medium text-brand-green/80 italic max-w-xl mx-auto lg:mx-0 leading-relaxed">
             Revolutionizing your everyday meal with nutrient-dense, protein-rich 
             vegetarian bowls inspired by bold global flavors.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start">
-            <Link to="/#subscription" className="btn-primary px-10 py-5 text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all">
+            <Link to="/#subscription" className="btn-primary px-10 py-5 text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all w-full sm:w-auto">
               Start Your Order
             </Link>
             <div className="flex items-center gap-3">
@@ -97,10 +97,10 @@ const Home = () => {
         </div>
 
         {/* RIGHT SECTION: SLIDER */}
-        <div className="flex-1 relative flex flex-col items-center">
+        <div className="w-full lg:flex-1 relative flex flex-col items-center">
           
           {/* Main Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-brand-green/20 rounded-full blur-[100px] -z-10"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] sm:w-[500px] sm:h-[500px] bg-brand-green/20 rounded-full blur-[100px] -z-10"></div>
 
           {/* Main Image with floating effect */}
           <div className="relative group animate-bounce-slow mt-8 lg:mt-0">
@@ -108,38 +108,38 @@ const Home = () => {
             <img
               src={`${bowls[current].image}?w=800`}
               alt="featured-bowl"
-              className="w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] lg:w-[480px] lg:h-[480px] object-cover rounded-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border-[10px] sm:border-[12px] border-white/50 transition-all duration-1000 transform group-hover:scale-105"
+              className="w-[260px] h-[260px] sm:w-[380px] sm:h-[380px] lg:w-[480px] lg:h-[480px] object-cover rounded-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border-[10px] sm:border-[12px] border-white/50 transition-all duration-1000 transform group-hover:scale-105"
             />
             
             {/* Tag Badge */}
-            <div className="absolute top-10 right-0 bg-brand-pink text-white px-6 py-2 rounded-full font-black italic shadow-xl transform rotate-12">
+            <div className="absolute top-10 right-0 bg-brand-pink text-white px-4 sm:px-6 py-2 rounded-full font-black italic shadow-xl transform rotate-12 text-xs sm:text-base">
               {bowls[current].tag}
             </div>
           </div>
 
           {/* MACROS CARD - High Intensity Style */}
-          <div className="mt-12 w-full max-w-md bg-white/90 backdrop-blur-xl p-8 rounded-[3.5rem] border-2 border-white shadow-2xl space-y-8">
+          <div className="mt-8 sm:mt-12 w-full max-w-[92%] sm:max-w-md bg-white/95 backdrop-blur-xl p-6 sm:p-8 rounded-[3rem] sm:rounded-[3.5rem] border-2 border-white shadow-2xl space-y-6 sm:space-y-8">
             <div className="flex justify-between items-center px-2">
-              <h3 className="text-2xl font-black italic text-brand-green">{bowls[current].name}</h3>
+              <h3 className="text-xl sm:text-2xl font-black italic text-brand-green">{bowls[current].name}</h3>
               <div className="flex gap-2">
-                <button onClick={prevSlide} className="p-2 bg-brand-green/10 text-brand-green rounded-full hover:bg-brand-green hover:text-white transition-all"><ChevronLeft size={20}/></button>
-                <button onClick={nextSlide} className="p-2 bg-brand-green/10 text-brand-green rounded-full hover:bg-brand-green hover:text-white transition-all"><ChevronRight size={20}/></button>
+                <button onClick={prevSlide} className="p-1.5 sm:p-2 bg-brand-green/10 text-brand-green rounded-full hover:bg-brand-green hover:text-white transition-all"><ChevronLeft size={18}/></button>
+                <button onClick={nextSlide} className="p-1.5 sm:p-2 bg-brand-green/10 text-brand-green rounded-full hover:bg-brand-green hover:text-white transition-all"><ChevronRight size={18}/></button>
               </div>
             </div>
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-2 sm:gap-4">
               {[
-                { val: bowls[current].macros.calories, label: "Cals", icon: <Flame size={16}/> },
-                { val: bowls[current].macros.protein, label: "Prot", icon: <Activity size={16}/> },
-                { val: bowls[current].macros.carbs, label: "Carb", icon: <Wind size={16}/> },
-                { val: bowls[current].macros.fat, label: "Fat", icon: <Droplets size={16}/> },
+                { val: bowls[current].macros.calories, label: "Cals", icon: <Flame size={14}/> },
+                { val: bowls[current].macros.protein, label: "Prot", icon: <Activity size={14}/> },
+                { val: bowls[current].macros.carbs, label: "Carb", icon: <Wind size={14}/> },
+                { val: bowls[current].macros.fat, label: "Fat", icon: <Droplets size={14}/> },
               ].map((m, i) => (
                 <div key={i} className="flex flex-col items-center gap-1">
-                  <div className="bg-brand-green/5 p-2 rounded-xl text-brand-green mb-1">
+                  <div className="bg-brand-green/5 p-1.5 sm:p-2 rounded-xl text-brand-green mb-1">
                     {m.icon}
                   </div>
-                  <p className="font-black text-brand-green text-lg">{m.val}</p>
-                  <p className="text-[10px] font-black uppercase text-brand-green/40 tracking-widest">{m.label}</p>
+                  <p className="font-black text-brand-green text-sm sm:text-lg">{m.val}</p>
+                  <p className="text-[8px] sm:text-[10px] font-black uppercase text-brand-green/40 tracking-widest">{m.label}</p>
                 </div>
               ))}
             </div>

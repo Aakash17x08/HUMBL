@@ -21,9 +21,9 @@ function App() {
   return (
     <Router>
       <ScrollToHash />
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen overflow-x-hidden w-full">
         <Navbar />
-        <main className="flex-1 flex flex-col">
+        <main className="flex-1 flex flex-col overflow-x-hidden">
           <Routes>
             <Route path="/" element={
               <>

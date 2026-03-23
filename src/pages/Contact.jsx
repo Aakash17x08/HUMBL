@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, Send, Instagram, Twitter, Facebook } from "lucide-
 
 const Contact = () => {
   return (
-    <section id="contact" className="bg-white min-h-screen py-32 px-6 sm:px-12 flex flex-col items-center">
+    <section id="contact" className="bg-white min-h-screen py-24 sm:py-32 px-4 sm:px-8 md:px-12 flex flex-col items-center overflow-hidden w-full">
       <div className="max-w-7xl w-full">
         
         {/* Header */}

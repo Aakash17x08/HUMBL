@@ -74,33 +74,35 @@ const Products = () => {
     : products.filter(p => p.category === activeCategory);
 
   return (
-    <section id="products" className="bg-white min-h-screen py-32 px-4 sm:px-12">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
+    <section id="products" className="bg-white min-h-screen py-24 sm:py-32 px-4 sm:px-6 md:px-12 w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-12">
         
         {/* LEFT: CATEGORIES SIDEBAR */}
-        <div className="lg:w-1/4 space-y-8">
-          <h2 className="text-3xl font-black italic text-brand-green leading-tight">
+        <div className="lg:w-1/4 space-y-6 sm:space-y-8">
+          <h2 className="text-3xl sm:text-4xl font-black italic text-brand-green leading-tight text-center lg:text-left">
             Menu <span className="text-brand-pink underline underline-offset-4">Categories</span>
           </h2>
           
-          <div className="flex lg:flex-col gap-4 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 scrollbar-hide">
+          <div className="flex lg:flex-col gap-3 sm:gap-4 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 scrollbar-hide">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center justify-between w-full min-w-[180px] p-4 rounded-2xl transition-all duration-300 shadow-sm border-2 ${
+                className={`flex items-center justify-between min-w-[140px] sm:min-w-[180px] lg:w-full p-3 sm:p-4 rounded-2xl transition-all duration-300 shadow-sm border-2 ${
                   activeCategory === cat.id 
                   ? "bg-brand-pink text-white border-brand-pink scale-105" 
                   : "bg-white text-brand-green border-white hover:border-brand-pink/20"
                 }`}
               >
-                <div className="flex items-center gap-4">
-                  <div className={`p-2 rounded-xl ${activeCategory === cat.id ? "bg-white/20" : "bg-brand-pink/10"}`}>
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className={`p-1.5 sm:p-2 rounded-xl ${activeCategory === cat.id ? "bg-white/20" : "bg-brand-pink/10"}`}>
                     {cat.icon}
                   </div>
-                  <span className="font-bold text-sm tracking-wide">{cat.id}</span>
+                  <span className="font-bold text-xs sm:text-sm tracking-wide whitespace-nowrap">{cat.id}</span>
                 </div>
-                {activeCategory === cat.id && <ChevronRight size={18} />}
+                <div className="hidden lg:block">
+                  {activeCategory === cat.id && <ChevronRight size={18} />}
+                </div>
               </button>
             ))}
           </div>
