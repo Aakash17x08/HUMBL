@@ -78,7 +78,7 @@ const Home = () => {
                   <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-brand-beige"></div>
                 ))}
               </div>
-              <p className="text-sm font-bold italic text-brand-green/60">Join <span className="text-brand-green">2k+</span> happy eaters</p>
+              <p className="text-sm font-bold italic text-brand-green/60">Join <span className="text-brand-green">Many</span> happy eaters</p>
             </div>
           </div>
 
