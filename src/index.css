@@ -1,40 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;700;900&family=Lexend:wght@100;300;400;500;700;900&display=swap');
 @import "tailwindcss";
 
-html {
-  scroll-behavior: smooth;
-}
-
-section {
-  scroll-margin-top: 90px;
-}
-
-body {
-  font-family: 'Caveat Brush', cursive;
-  background-color: var(--color-brand-beige);
-  color: #2d3748;
-  font-size: 1.15rem;
-  /* Handwriting fonts usually read smaller */
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Caveat Brush', cursive;
-}
-
 @theme {
-  --color-brand-pink: #f9c0c3;
-  --color-brand-green: #2d5a41;
+  --color-brand-pink: #f9a8b3;
+  --color-brand-green: #37533b;
   --color-brand-beige: #fee5e7;
-  --color-brand-dark: #1e3a2b;
+  --color-brand-dark: #1e2e21;
   --color-brand-white: #ffffff;
 
+  --font-primary: 'Outfit', sans-serif;
+  --font-secondary: 'Lexend', sans-serif;
+
   --animate-fade-in: fadeIn 0.5s ease-out;
+  --animate-bounce-slow: bounceSlow 3s infinite ease-in-out;
 
   @keyframes fadeIn {
     from {
@@ -46,6 +24,46 @@ h6 {
       transform: translateY(0);
     }
   }
+
+  @keyframes bounceSlow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+}
+
+:root {
+  --font-primary: 'Outfit', sans-serif;
+  --font-secondary: 'Lexend', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 90px;
+}
+
+body {
+  background-color: var(--color-brand-pink);
+  font-family: var(--font-secondary);
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  color: var(--color-brand-dark);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-primary);
 }
 
 @layer components {

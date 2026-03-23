@@ -51,11 +51,11 @@ const Navbar = () => {
 
         {/* Left Section: Logo Only */}
         <div className="flex-1 flex items-center justify-start">
-          <a href="#home" className="shrink-0 flex items-center gap-2">
+          <Link to="/" className="shrink-0 flex items-center gap-2">
             <div className="p-2 sm:p-3 rounded-full transform hover:scale-110 transition-transform">
               <img src={logo_no_bg} alt="Humbl. Logo" className="h-8 sm:h-15 w-auto invert" />
             </div>
-          </a>
+          </Link>
         </div>
 
         {/* Center Section: Centered Nav Links (Desktop) */}
@@ -64,7 +64,7 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <li key={link.id}>
                 <a
-                  href={`#${link.id}`}
+                  href={`/#${link.id}`}
                   className={`nav-link ${activeSection === link.id ? 'nav-link-active' : ''}`}
                 >
                   {link.label}
@@ -100,7 +100,7 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <li className="w-full text-center" key={link.id}>
                 <a
-                  href={`#${link.id}`}
+                  href={`/#${link.id}`}
                   onClick={() => setIsOpen(false)}
                   className={`
                     inline-block w-full px-8 py-4 text-3xl font-bold transition-all text-white

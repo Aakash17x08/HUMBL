@@ -11,10 +11,16 @@ import Products from './pages/Products';
 import Blogs from './pages/Blogs';
 import Subscription from './pages/Subscription';
 import Cart from './pages/Cart';
+import BlogPost from './pages/BlogPost';
+import FAQ from './pages/FAQ';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
+import ScrollToHash from './components/ScrollToHash';
 
 function App() {
   return (
     <Router>
+      <ScrollToHash />
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-1 flex flex-col">
@@ -30,6 +36,10 @@ function App() {
               </>
             } />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
           </Routes>
         </main>
         <Footer />

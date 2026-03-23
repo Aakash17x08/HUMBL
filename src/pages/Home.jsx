@@ -1,207 +1,151 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { ChevronLeft, ChevronRight, Activity, Flame, Wind, Droplets } from "lucide-react";
 
 const bowls = [
   {
-    name: "Paneer Bowl",
-    image:
-      "https://sinfullyspicy.com/wp-content/uploads/2022/05/1-2.jpg",
-    macros: {
-      calories: 450,
-      protein: "22g",
-      carbs: "48g",
-      fat: "18g",
-    },
+    name: "Açaí Berry Mix",
+    image: "https://images.unsplash.com/photo-1590301157890-4810ed352733",
+    macros: { calories: 350, protein: "12g", carbs: "65g", fat: "8g" },
+    tag: "Antioxidant"
   },
   {
-    name: "Chickpea Protein Bowl",
-    image:
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
-    macros: {
-      calories: 420,
-      protein: "20g",
-      carbs: "55g",
-      fat: "12g",
-    },
+    name: "Mediterranean Kale",
+    image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
+    macros: { calories: 420, protein: "20g", carbs: "55g", fat: "12g" },
+    tag: "High Fiber"
   },
   {
-    name: "Veggie Green Bowl",
-    image:
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
-    macros: {
-      calories: 380,
-      protein: "16g",
-      carbs: "45g",
-      fat: "10g",
-    },
+    name: "Quinoa Veggie Mix",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
+    macros: { calories: 400, protein: "18g", carbs: "50g", fat: "15g" },
+    tag: "Nutrient Dense"
   },
 ];
 
-const products = [
-  {
-    name: "Paneer Salad",
-    type: "Vegetarian",
-    price: "₹299",
-    image:
-      "https://sinfullyspicy.com/wp-content/uploads/2022/05/1-2.jpg",
-  },
-  {
-    name: "Mediterranean Veg",
-    type: "Vegetarian",
-    price: "₹249",
-    image:
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
-  },
-  {
-    name: "Chickpea Bowl",
-    type: "Vegetarian",
-    price: "₹269",
-    image:
-      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
-  },
-  {
-    name: "Grilled Veggies",
-    type: "Vegetarian",
-    price: "₹259",
-    image:
-      "https://images.unsplash.com/photo-1498837167922-ddd27525d352",
-  },
-  {
-    name: "Avocado Veg Bowl",
-    type: "Vegetarian",
-    price: "₹289",
-    image:
-      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
-  },
+const miniProducts = [
+  { name: "Paneer Salad", price: "₹299", image: "https://sinfullyspicy.com/wp-content/uploads/2022/05/1-2.jpg" },
+  { name: "Med Veg", price: "₹249", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd" },
+  { name: "Chickpea", price: "₹269", image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" },
+  { name: "Avocado", price: "₹289", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c" },
 ];
 
 const Home = () => {
   const [current, setCurrent] = useState(0);
 
-  // Auto slide
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % bowls.length);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
-  const nextSlide = () => {
-    setCurrent((prev) => (prev + 1) % bowls.length);
-  };
-
-  const prevSlide = () => {
-    setCurrent((prev) => (prev - 1 + bowls.length) % bowls.length);
-  };
+  const nextSlide = () => setCurrent((prev) => (prev + 1) % bowls.length);
+  const prevSlide = () => setCurrent((prev) => (prev - 1 + bowls.length) % bowls.length);
 
   return (
-    <section id="home" className="bg-brand-pink min-h-screen flex items-center justify-center pt-32 pb-12 transition-colors duration-500">
-      <div className="w-[94%] max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+    <section id="home" className="bg-brand-pink min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden">
+      <div className="w-[94%] max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-16">
         
         {/* LEFT SECTION */}
-        <div className="max-w-xl text-center lg:text-left flex flex-col items-center lg:items-start">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-black italic tracking-tighter text-brand-green mb-6">
-            B<span className="text-white">O</span>WL'S
-          </h1>
+        <div className="flex-1 space-y-10 text-center lg:text-left animate-fade-in">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 bg-brand-green/10 text-brand-green px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest italic">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-green"></span>
+              </span>
+              Premium Vegetarian Bowls
+            </div>
+            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter text-brand-green uppercase leading-[0.9]">
+              Eat <span className="text-white">Fresh</span>,<br />
+              Stay <span className="text-white">H</span>umble.
+            </h1>
+          </div>
 
-          <p className="text-brand-green font-medium mb-8 text-sm sm:text-base md:text-lg max-w-md lg:max-w-none opacity-80 italic">
-            Fresh vegetarian bowls crafted for your lifestyle — packed with
-            protein-rich ingredients and bold Indian flavors.
+          <p className="text-lg sm:text-xl font-medium text-brand-green/80 italic max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Revolutionizing your everyday meal with nutrient-dense, protein-rich 
+            vegetarian bowls inspired by bold global flavors.
           </p>
 
-          <button className="btn-primary mb-16">
-            Start Order
-          </button>
+          <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start">
+            <Link to="/#subscription" className="btn-primary px-10 py-5 text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all">
+              Start Your Order
+            </Link>
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-4">
+                {[1,2,3].map(i => (
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-brand-beige"></div>
+                ))}
+              </div>
+              <p className="text-sm font-bold italic text-brand-green/60">Join <span className="text-brand-green">2k+</span> happy eaters</p>
+            </div>
+          </div>
 
-          {/* PRODUCTS LIST */}
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-6 gap-y-16 sm:gap-8 justify-items-center justify-center lg:justify-start w-full">
-            {products.map((item, index) => (
-              <div
-                key={index}
-                className="product-card w-36 sm:w-40"
-              >
-                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2">
-                  <img
-                    src={`${item.image}?w=200`}
-                    alt={item.name}
-                    className="w-20 h-20 object-cover rounded-full border-2 border-brand-green shadow-sm"
-                  />
+          {/* QUICK MINI PRODUCTS */}
+          <div className="hidden sm:flex flex-wrap gap-6 pt-10">
+            {miniProducts.map((item, idx) => (
+              <div key={idx} className="bg-white/40 backdrop-blur-sm p-4 rounded-[2rem] border border-white/20 flex items-center gap-4 hover:bg-white/60 transition-all cursor-pointer group shadow-lg">
+                <img src={item.image} className="w-12 h-12 rounded-full object-cover group-hover:rotate-12 transition-transform" alt={item.name} />
+                <div>
+                  <p className="text-xs font-black text-brand-green">{item.name}</p>
+                  <p className="text-xs font-bold text-brand-pink">{item.price}</p>
                 </div>
-
-                <h3 className="font-bold text-brand-green text-sm sm:text-base mt-2">
-                  {item.name}
-                </h3>
-                <p className="text-gray-500 text-[10px] sm:text-xs font-semibold">{item.type}</p>
-                <p className="font-bold text-brand-pink text-sm sm:text-lg mt-1">{item.price}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* RIGHT SLIDER SECTION */}
-        <div className="relative flex flex-col items-center w-full lg:w-auto">
+        {/* RIGHT SECTION: SLIDER */}
+        <div className="flex-1 relative flex flex-col items-center">
           
-          {/* IMAGE GLOW */}
-          <div className="absolute w-64 h-64 sm:w-96 sm:h-96 bg-brand-green rounded-full -z-10 opacity-20 blur-[80px]"></div>
+          {/* Main Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-brand-green/20 rounded-full blur-[100px] -z-10"></div>
 
-          {/* MAIN IMAGE */}
-          <div className="relative group">
-             <img
-              src={`${bowls[current].image}?w=600`}
-              alt="bowl"
-              className="w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[480px] md:h-[480px] object-cover rounded-full shadow-2xl transition-all duration-700 transform group-hover:rotate-6 sm:border-8 border-brand-green/10"
+          {/* Main Image with floating effect */}
+          <div className="relative group animate-bounce-slow mt-8 lg:mt-0">
+            <div className="absolute -inset-4 bg-brand-green/5 rounded-full blur-2xl"></div>
+            <img
+              src={`${bowls[current].image}?w=800`}
+              alt="featured-bowl"
+              className="w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] lg:w-[480px] lg:h-[480px] object-cover rounded-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border-[10px] sm:border-[12px] border-white/50 transition-all duration-1000 transform group-hover:scale-105"
             />
-          </div>
-
-          {/* MACROS CARD */}
-          <div className="macros-card mt-12">
-            <h3 className="font-black text-brand-green text-xl mb-6 italic">
-              {bowls[current].name}
-            </h3>
-
-            <div className="flex justify-between items-center">
-              <div className="flex flex-col items-center">
-                <p className="font-black text-brand-pink text-xl">
-                  {bowls[current].macros.calories}
-                </p>
-                <p className="uppercase text-[10px] font-black text-gray-500 tracking-widest">Cals</p>
-              </div>
-              <div className="flex flex-col items-center border-l-2 border-brand-green/10 pl-4">
-                <p className="font-black text-brand-green text-xl">
-                  {bowls[current].macros.protein}
-                </p>
-                <p className="uppercase text-[10px] font-black text-gray-500 tracking-widest">Prot</p>
-              </div>
-              <div className="flex flex-col items-center border-l-2 border-brand-green/10 pl-4">
-                <p className="font-black text-brand-green text-xl">
-                  {bowls[current].macros.carbs}
-                </p>
-                <p className="uppercase text-[10px] font-black text-gray-500 tracking-widest">Carb</p>
-              </div>
-              <div className="flex flex-col items-center border-l-2 border-brand-green/10 pl-4">
-                <p className="font-black text-brand-green text-xl">
-                  {bowls[current].macros.fat}
-                </p>
-                <p className="uppercase text-[10px] font-black text-gray-500 tracking-widest">Fat</p>
-              </div>
+            
+            {/* Tag Badge */}
+            <div className="absolute top-10 right-0 bg-brand-pink text-white px-6 py-2 rounded-full font-black italic shadow-xl transform rotate-12">
+              {bowls[current].tag}
             </div>
           </div>
 
-          {/* SLIDER CONTROLS */}
-          <div className="flex gap-4 mt-8">
-            <button
-              onClick={prevSlide}
-              className="bg-brand-green text-white p-3.5 rounded-full shadow-lg hover:bg-brand-dark transition-all hover:scale-110 active:scale-90"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-            </button>
-            <button
-              onClick={nextSlide}
-              className="bg-brand-green text-white p-3.5 rounded-full shadow-lg hover:bg-brand-dark transition-all hover:scale-110 active:scale-90"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </button>
+          {/* MACROS CARD - High Intensity Style */}
+          <div className="mt-12 w-full max-w-md bg-white/90 backdrop-blur-xl p-8 rounded-[3.5rem] border-2 border-white shadow-2xl space-y-8">
+            <div className="flex justify-between items-center px-2">
+              <h3 className="text-2xl font-black italic text-brand-green">{bowls[current].name}</h3>
+              <div className="flex gap-2">
+                <button onClick={prevSlide} className="p-2 bg-brand-green/10 text-brand-green rounded-full hover:bg-brand-green hover:text-white transition-all"><ChevronLeft size={20}/></button>
+                <button onClick={nextSlide} className="p-2 bg-brand-green/10 text-brand-green rounded-full hover:bg-brand-green hover:text-white transition-all"><ChevronRight size={20}/></button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-4 gap-4">
+              {[
+                { val: bowls[current].macros.calories, label: "Cals", icon: <Flame size={16}/> },
+                { val: bowls[current].macros.protein, label: "Prot", icon: <Activity size={16}/> },
+                { val: bowls[current].macros.carbs, label: "Carb", icon: <Wind size={16}/> },
+                { val: bowls[current].macros.fat, label: "Fat", icon: <Droplets size={16}/> },
+              ].map((m, i) => (
+                <div key={i} className="flex flex-col items-center gap-1">
+                  <div className="bg-brand-green/5 p-2 rounded-xl text-brand-green mb-1">
+                    {m.icon}
+                  </div>
+                  <p className="font-black text-brand-green text-lg">{m.val}</p>
+                  <p className="text-[10px] font-black uppercase text-brand-green/40 tracking-widest">{m.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
       </div>
     </section>
   );
