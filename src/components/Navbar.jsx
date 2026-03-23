@@ -41,6 +41,18 @@ const Navbar = () => {
     { id: 'contact', label: 'Contact' },
   ];
 
+  const handleNavClick = (e, id) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        window.history.pushState(null, '', `/#${id}`);
+      }
+      setIsOpen(false);
+    }
+  };
+
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled
       ? 'h-[70px] shadow-lg bg-brand-green/95 backdrop-blur-md'
@@ -63,12 +75,13 @@ const Navbar = () => {
           <ul className="flex flex-row space-x-2">
             {navLinks.map((link) => (
               <li key={link.id}>
-                <a
-                  href={`/#${link.id}`}
+                <Link
+                  to={`/#${link.id}`}
+                  onClick={(e) => handleNavClick(e, link.id)}
                   className={`nav-link ${activeSection === link.id ? 'nav-link-active' : ''}`}
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -99,16 +112,16 @@ const Navbar = () => {
           <ul className="flex flex-col items-center gap-4">
             {navLinks.map((link) => (
               <li className="w-full text-center" key={link.id}>
-                <a
-                  href={`/#${link.id}`}
-                  onClick={() => setIsOpen(false)}
+                <Link
+                  to={`/#${link.id}`}
+                  onClick={(e) => handleNavClick(e, link.id)}
                   className={`
                     inline-block w-full px-8 py-4 text-3xl font-bold transition-all text-white
                     ${activeSection === link.id ? 'bg-white/10' : 'hover:bg-white/5'}
                   `}
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

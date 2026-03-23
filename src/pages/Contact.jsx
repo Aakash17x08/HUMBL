@@ -41,7 +41,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="text-xs font-black uppercase tracking-widest text-brand-green/50 mb-1">Call Anytime</p>
-                  <p className="text-xl font-black italic text-brand-green">+91 9590 510 520</p>
+                  <p className="text-xl font-black italic text-brand-green">+91 123 456 789</p>
                 </div>
               </div>
 
