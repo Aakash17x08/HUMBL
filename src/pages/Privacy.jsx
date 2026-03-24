@@ -17,7 +17,7 @@ const Privacy = () => {
         <div className="italic font-medium leading-relaxed space-y-12">
           <div className="bg-brand-white/10 p-8 rounded-[2.5rem]">
             <h3 className="text-3xl font-black mb-4">Your Data, Your Privacy</h3>
-            <p>At HUMBL, we collect minimal data to provide you with the best healthy meal delivery experience. We only collect information that is absolutely necessary for order fulfillment and personalization.</p>
+            <p>At Go-Humbl, we collect minimal data to provide you with the best healthy meal delivery experience. We only collect information that is absolutely necessary for order fulfillment and personalization.</p>
           </div>
 
           <div className="bg-brand-white/10 p-8 rounded-[2.5rem]">

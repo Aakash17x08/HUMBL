@@ -7,8 +7,8 @@ const FAQ = () => {
 
   const faqs = [
     {
-      q: "What is HUMBL?",
-      a: "HUMBL is a fresh, vegetarian-focused food brand dedicated to providing nutrient-dense, plant-powered meals across India."
+      q: "What is Go-Humbl?",
+      a: "Go-Humbl is a fresh, vegetarian-focused food brand dedicated to providing nutrient-dense, plant-powered meals across India."
     },
     {
       q: "How do your subscriptions work?",

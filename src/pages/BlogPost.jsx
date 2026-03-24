@@ -65,7 +65,7 @@ const BlogPost = () => {
 
         {/* Bottom Call to Action */}
         <div className="mt-20 p-10 bg-brand-green rounded-[2.5rem] shadow-xl text-center text-white">
-          <h2 className="text-3xl sm:text-4xl font-black italic mb-6">Hungry for some HUMBL?</h2>
+          <h2 className="text-3xl sm:text-4xl font-black italic mb-6">Hungry for some Go-Humbl?</h2>
           <p className="text-brand-beige/80 font-bold mb-8 text-lg">Taste the freshness in every bite. Order your bowl today!</p>
           <Link to="/#subscription" className="bg-brand-pink text-brand-green px-10 py-4 rounded-full font-black text-xl hover:scale-105 active:scale-95 transition-all inline-block shadow-lg">
             Start Your Order

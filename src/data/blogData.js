@@ -28,10 +28,10 @@ export const blogPosts = [
   {
     id: 2,
     date: "Mar 18, 2024",
-    title: "Why Fresh-Cut Veggies Taste Better: The HUMBL Way",
+    title: "Why Fresh-Cut Veggies Taste Better: The Go-Humbl Way",
     image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1200",
     content: `
-      <p>At HUMBL, we never compromise on freshness. But have you ever wondered why fresh-cut vegetables actually taste better than pre-packaged ones? It's not just in your head—it's science.</p>
+      <p>At Go-Humbl, we never compromise on freshness. But have you ever wondered why fresh-cut vegetables actually taste better than pre-packaged ones? It's not just in your head—it's science.</p>
       
       <h3>The Oxidation Process</h3>
       <p>As soon as a vegetable is cut, its cells are exposed to oxygen. This starts the process of oxidation, which can break down nutrients and alter the flavor profile. By cutting our veggies fresh every morning, we minimize this process.</p>

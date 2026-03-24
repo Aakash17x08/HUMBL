@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Activity, Flame, Wind, Droplets } from "lucide-react";
+import homeVideo from "../assets/logo/Sample_Video.mp4";
 
 const bowls = [
   {
@@ -44,8 +45,22 @@ const Home = () => {
   const prevSlide = () => setCurrent((prev) => (prev - 1 + bowls.length) % bowls.length);
 
   return (
-    <section id="home" className="bg-brand-pink min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden w-full">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-12 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-24 pb-12 overflow-hidden w-full">
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src={homeVideo} type="video/mp4" />
+      </video>
+
+      {/* Overlay to make text and elements readable while maintaining the brand pink color */}
+      <div className="absolute inset-0 bg-brand-pink/40 z-10"></div>
+
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-12 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 relative z-20">
         
         {/* LEFT SECTION */}
         <div className="w-full lg:flex-1 space-y-10 text-center lg:text-left animate-fade-in px-2 sm:px-0">
@@ -70,7 +85,7 @@ const Home = () => {
 
           <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start">
             <Link to="/#subscription" className="btn-primary px-10 py-5 text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all w-full sm:w-auto">
-              Start Your Order
+              Try Now
             </Link>
             <div className="flex items-center gap-3">
               <div className="flex -space-x-4">

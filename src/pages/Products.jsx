@@ -17,7 +17,8 @@ const products = [
     price: "₹349",
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?q=80&w=600",
-    description: "Pure Amazonian açaí, banana, berries, and artisanal granola."
+    description: "Pure Amazonian açaí, banana, berries, and artisanal granola.",
+    micronutrients: ["Vitamin C", "Antioxidants", "Iron"]
   },
   {
     id: 2,
@@ -26,7 +27,8 @@ const products = [
     price: "₹299",
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600",
-    description: "Fresh kale, quinoa, feta cheese, and balsamic glaze."
+    description: "Fresh kale, quinoa, feta cheese, and balsamic glaze.",
+    micronutrients: ["Calcium", "Vitamin A", "Fiber"]
   },
   {
     id: 3,
@@ -35,7 +37,8 @@ const products = [
     price: "₹199",
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?q=80&w=600",
-    description: "Cold-pressed blueberries, strawberries, and coconut milk."
+    description: "Cold-pressed blueberries, strawberries, and coconut milk.",
+    micronutrients: ["Vitamin K", "Manganese", "Vitamin C"]
   },
   {
     id: 4,
@@ -44,7 +47,8 @@ const products = [
     price: "₹389",
     rating: 4.5,
     image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600",
-    description: "Açaí base topped with peanut butter and cacao nibs."
+    description: "Açaí base topped with peanut butter and cacao nibs.",
+    micronutrients: ["Protein", "Magnesium", "Potassium"]
   },
   {
     id: 5,
@@ -53,7 +57,8 @@ const products = [
     price: "₹279",
     rating: 4.6,
     image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=600",
-    description: "Spiced chickpeas, cucumber, cherry tomatoes, and tahini."
+    description: "Spiced chickpeas, cucumber, cherry tomatoes, and tahini.",
+    micronutrients: ["Folate", "Iron", "Fiber"]
   },
   {
     id: 6,
@@ -62,7 +67,8 @@ const products = [
     price: "₹229",
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1536304911226-72bb95928883?q=80&w=600",
-    description: "Fresh mango, pineapple, ginger, and turmeric."
+    description: "Fresh mango, pineapple, ginger, and turmeric.",
+    micronutrients: ["Vitamin A", "Vitamin C", "Curcumin"]
   }
 ];
 
@@ -134,6 +140,17 @@ const Products = () => {
                   <p className="text-xs font-medium text-brand-green/60 italic mb-4 line-clamp-2 leading-relaxed">
                     {product.description}
                   </p>
+
+                  {/* Micronutrients Display */}
+                  {product.micronutrients && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {product.micronutrients.map((micro, i) => (
+                        <span key={i} className="text-[10px] font-black tracking-widest uppercase bg-brand-green/10 text-brand-green px-2 py-1 rounded-full">
+                          {micro}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="mt-auto pt-4 border-t border-brand-green/5 flex flex-col gap-4">
                     <div className="flex justify-between items-center px-1">

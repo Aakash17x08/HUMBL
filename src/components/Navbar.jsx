@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingBag } from 'lucide-react';
-import logo from '../assets/logo/logo.svg';
-import logo_no_bg from '../assets/logo/logo_no_bg.png';
+import logo_no_bg from '../assets/logo/Updated_logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,26 +58,26 @@ const Navbar = () => {
       : 'h-[90px] bg-brand-green'
       }`}
     >
-      <div className="flex justify-between items-center w-full max-w-7xl mx-auto px-4 sm:px-8 h-full">
+      <div className="flex justify-between items-center w-full max-w-7xl mx-auto px-4 sm:px-8 h-full gap-4">
 
         {/* Left Section: Logo Only */}
-        <div className="flex-1 flex items-center justify-start">
-          <Link to="/" className="shrink-0 flex items-center gap-2">
-            <div className="p-2 sm:p-3 rounded-full transform hover:scale-110 transition-transform">
-              <img src={logo_no_bg} alt="Humbl. Logo" className="h-8 sm:h-15 w-auto invert" />
+        <div className="flex-shrink-0 flex items-center justify-start">
+          <Link to="/" className="shrink-0 flex items-center">
+            <div className="p-1 sm:p-2 rounded-full transform hover:scale-110 transition-transform">
+              <img src={logo_no_bg} alt="Go-Humbl. Logo" className="h-10 sm:h-14 lg:h-18 w-auto object-contain " />
             </div>
           </Link>
         </div>
 
         {/* Center Section: Centered Nav Links (Desktop) */}
-        <div className="hidden md:flex flex-[2] justify-center items-center">
-          <ul className="flex flex-row space-x-2">
+        <div className="hidden md:flex flex-1 justify-center items-center px-2">
+          <ul className="flex flex-row space-x-1 lg:space-x-4">
             {navLinks.map((link) => (
               <li key={link.id}>
                 <Link
                   to={`/#${link.id}`}
                   onClick={(e) => handleNavClick(e, link.id)}
-                  className={`nav-link ${activeSection === link.id ? 'nav-link-active' : ''}`}
+                  className={`nav-link text-sm lg:text-lg px-2 lg:px-4 ${activeSection === link.id ? 'nav-link-active' : ''}`}
                 >
                   {link.label}
                 </Link>
@@ -88,7 +87,7 @@ const Navbar = () => {
         </div>
 
         {/* Right Section: Toggle, Cart & Action */}
-        <div className="flex-1 flex items-center justify-end gap-5">
+        <div className="flex-shrink-0 flex items-center justify-end gap-2 sm:gap-5">
           <Link
             to="/cart"
             className="relative p-2 transition-all rounded-full text-white hover:bg-white/10"

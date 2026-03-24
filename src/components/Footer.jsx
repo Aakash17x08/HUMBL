@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Phone, Mail, MessageCircle, Twitter, Facebook, Youtube, Instagram } from "lucide-react";
-import logo from "../assets/logo/logo.svg";
+import logo from "../assets/logo/Updated_logo.png";
 
 const popularArticles = [
   "VEGETARIAN KETO PLAN FOR A DAY",
@@ -46,7 +46,7 @@ const Footer = () => {
               </div>
               <div>
                 <p className="text-xs uppercase font-bold tracking-widest text-white/60 mb-1">Mail us at</p>
-                <p className="font-bold text-white">inquiries@humbl.com</p>
+                <p className="font-bold text-white">inquiries@gohumbl.com</p>
               </div>
             </div>
 
@@ -56,7 +56,7 @@ const Footer = () => {
               </div>
               <div>
                 <p className="text-xs uppercase font-bold tracking-widest text-white/60 mb-1">Feedback</p>
-                <p className="font-bold text-white">feedback@humbl.com</p>
+                <p className="font-bold text-white">feedback@gohumbl.com</p>
               </div>
             </div>
           </div>
@@ -66,11 +66,11 @@ const Footer = () => {
         <div className="bg-brand-dark/40 rounded-[2rem] p-8 md:p-10 border border-white/5">
           <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-10 mb-10">
             <div className="flex items-center gap-6">
-              <div className="bg-brand-pink p-5 rounded-[1.5rem] shadow-xl text-brand-green">
-                <img src={logo} alt="Humbl. Logo" className="w-12 h-12 object-contain" />
+              <div className=" p-5 rounded-[1.5rem] shadow-xl text-brand-green">
+                <img src={logo} alt="Go-Humbl. Logo" className="w-auto h-18 object-contain" />
               </div>
               <div>
-                <h3 className="text-2xl font-black italic text-white uppercase tracking-tight">Humbl.</h3>
+                <h3 className="text-2xl font-black italic text-white uppercase tracking-tight">Go-Humbl.</h3>
                 <p className="text-sm font-medium text-white/80 max-w-[300px] leading-relaxed">
                   A food and nutrition company that offers healthy and tasty meals to be delivered to your doorstep.
                 </p>
@@ -95,14 +95,14 @@ const Footer = () => {
               <li><Link to="/privacy" className="hover:opacity-70 transition-opacity">Privacy Policy</Link></li>
               <li><Link to="/#blogs" className="hover:opacity-70 transition-opacity">Blog</Link></li>
             </ul>
-            <p className="text-white">© 2026 HUMBL FOODS | All rights reserved.</p>
+            <p className="text-white">© 2026 GO-HUMBL FOODS | All rights reserved.</p>
           </div>
         </div>
 
         {/* BOTTOM SECTION: Popular Articles */}
         <div className="mt-6 px-4">
           <h4 className="text-white text-sm font-bold uppercase tracking-[0.2em] mb-4 opacity-70">
-            Popular articles on HUMBL
+            Popular articles on GO-HUMBL
           </h4>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-[10px] sm:text-xs font-bold opacity-60 uppercase tracking-widest text-center text-white">
             {popularArticles.map((article, idx) => (
