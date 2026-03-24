@@ -68,7 +68,7 @@ const Subscription = () => {
           {plans.map((plan, idx) => (
             <div 
               key={idx} 
-              className={`relative bg-white p-8 sm:p-10 rounded-[3rem] sm:rounded-[3.5rem] border-2 flex flex-col items-center text-center transition-all duration-500 md:hover:-translate-y-4
+              className={`relative bg-brand-beige p-8 sm:p-10 rounded-[3rem] sm:rounded-[3.5rem] border-2 flex flex-col items-center text-center transition-all duration-500 md:hover:-translate-y-4
                 ${plan.highlight 
                   ? "border-brand-green shadow-2xl lg:scale-105 z-10" 
                   : "border-brand-green/5 shadow-xl md:opacity-90"
