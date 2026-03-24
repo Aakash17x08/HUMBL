@@ -89,7 +89,7 @@ const Home = () => {
                 <img src={item.image} className="w-12 h-12 rounded-full object-cover group-hover:rotate-12 transition-transform" alt={item.name} />
                 <div>
                   <p className="text-xs font-black text-brand-green">{item.name}</p>
-                  <p className="text-xs font-bold text-brand-white">{item.price}</p>
+                  <p className="text-xs font-bold text-brand-green">{item.price}</p>
                 </div>
               </div>
             ))}
