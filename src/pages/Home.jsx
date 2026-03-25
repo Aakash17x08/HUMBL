@@ -61,7 +61,7 @@ const Home = () => {
       <div className="absolute inset-0 bg-brand-pink/40 z-10"></div>
 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-12 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 relative z-20">
-        
+
         {/* LEFT SECTION */}
         <div className="w-full lg:flex-1 space-y-10 text-center lg:text-left animate-fade-in px-2 sm:px-0">
           <div className="space-y-4">
@@ -79,7 +79,7 @@ const Home = () => {
           </div>
 
           <p className="text-base sm:text-xl font-medium text-brand-green/80 italic max-w-xl mx-auto lg:mx-0 leading-relaxed">
-            Revolutionizing your everyday meal with nutrient-dense, protein-rich 
+            Revolutionizing your everyday meal with nutrient-dense, protein-rich
             vegetarian bowls inspired by bold global flavors.
           </p>
 
@@ -89,7 +89,7 @@ const Home = () => {
             </Link>
             <div className="flex items-center gap-3">
               <div className="flex -space-x-4">
-                {[1,2,3].map(i => (
+                {[1, 2, 3].map(i => (
                   <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-brand-beige"></div>
                 ))}
               </div>
@@ -113,7 +113,7 @@ const Home = () => {
 
         {/* RIGHT SECTION: SLIDER */}
         <div className="w-full lg:flex-1 relative flex flex-col items-center">
-          
+
           {/* Main Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] sm:w-[500px] sm:h-[500px] bg-brand-green/20 rounded-full blur-[100px] -z-10"></div>
 
@@ -125,7 +125,7 @@ const Home = () => {
               alt="featured-bowl"
               className="w-[260px] h-[260px] sm:w-[380px] sm:h-[380px] lg:w-[480px] lg:h-[480px] object-cover rounded-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border-[10px] sm:border-[12px] border-white/50 transition-all duration-1000 transform group-hover:scale-105"
             />
-            
+
             {/* Tag Badge */}
             <div className="absolute top-10 right-0 bg-brand-pink text-white px-4 sm:px-6 py-2 rounded-full font-black italic shadow-xl transform rotate-12 text-xs sm:text-base">
               {bowls[current].tag}
@@ -137,17 +137,17 @@ const Home = () => {
             <div className="flex justify-between items-center px-2">
               <h3 className="text-xl sm:text-2xl font-black italic text-brand-green">{bowls[current].name}</h3>
               <div className="flex gap-2">
-                <button onClick={prevSlide} className="p-1.5 sm:p-2 bg-brand-green/10 text-brand-green rounded-full hover:bg-brand-green hover:text-white transition-all"><ChevronLeft size={18}/></button>
-                <button onClick={nextSlide} className="p-1.5 sm:p-2 bg-brand-green/10 text-brand-green rounded-full hover:bg-brand-green hover:text-white transition-all"><ChevronRight size={18}/></button>
+                <button onClick={prevSlide} className="p-1.5 sm:p-2 bg-brand-green/10 text-brand-green rounded-full hover:bg-brand-green hover:text-white transition-all"><ChevronLeft size={18} /></button>
+                <button onClick={nextSlide} className="p-1.5 sm:p-2 bg-brand-green/10 text-brand-green rounded-full hover:bg-brand-green hover:text-white transition-all"><ChevronRight size={18} /></button>
               </div>
             </div>
 
             <div className="grid grid-cols-4 gap-2 sm:gap-4">
               {[
-                { val: bowls[current].macros.calories, label: "Cals", icon: <Flame size={14}/> },
-                { val: bowls[current].macros.protein, label: "Prot", icon: <Activity size={14}/> },
-                { val: bowls[current].macros.carbs, label: "Carb", icon: <Wind size={14}/> },
-                { val: bowls[current].macros.fat, label: "Fat", icon: <Droplets size={14}/> },
+                { val: bowls[current].macros.calories, label: "Cals", icon: <Flame size={14} /> },
+                { val: bowls[current].macros.protein, label: "Prot", icon: <Activity size={14} /> },
+                { val: bowls[current].macros.carbs, label: "Carb", icon: <Wind size={14} /> },
+                { val: bowls[current].macros.fat, label: "Fat", icon: <Droplets size={14} /> },
               ].map((m, i) => (
                 <div key={i} className="flex flex-col items-center gap-1">
                   <div className="bg-brand-green/5 p-1.5 sm:p-2 rounded-xl text-brand-green mb-1">
