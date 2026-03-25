@@ -3,7 +3,6 @@ import { X, Activity } from "lucide-react";
 
 const BMICalculator = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [goal, setGoal] = useState("Healthy Eating");
   const [gender, setGender] = useState("male");
   const [age, setAge] = useState("");
   const [weight, setWeight] = useState("");
@@ -46,26 +45,40 @@ const BMICalculator = () => {
     if (bmiValue < 18.5) {
       classification = "Underweight";
       color = "text-amber-500";
-      message = "You are below the healthy weight range. A balanced, calorie-surplus diet can help you reach your goals.";
+      message = "You are below the healthy weight range. A balanced, calorie-surplus diet can help you reach your goals. Calorie intake depends on your activity.";
     } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
       classification = "Normal";
       color = "text-brand-green";
-      message = "Great job! You are in a healthy weight range. Keep up the good work with balanced meals.";
+      message = "Great job! You are in a healthy weight range. Keep up the good work with balanced meals. Calorie intake depends on your activity.";
     } else if (bmiValue >= 25 && bmiValue < 29.9) {
       classification = "Overweight";
       color = "text-orange-500";
-      message = "You are slightly above the healthy weight range. Small dietary adjustments can have a big impact.";
+      message = "You are slightly above the healthy weight range. Small dietary adjustments can have a big impact. Calorie intake depends on your activity.";
     } else {
       classification = "Obese";
       color = "text-red-500";
-      message = "Your BMI indicates obesity. Focusing on nutrient-dense, portion-controlled meals will be highly beneficial.";
+      message = "Your BMI indicates obesity. Focusing on nutrient-dense, portion-controlled meals will be highly beneficial. Calorie intake depends on your activity.";
     }
+
+    const a = parseInt(age);
+    const ht = parseFloat(height);
+    
+    // Mifflin-St Jeor Equation
+    let bmr = 10 * w + 6.25 * ht - 5 * a;
+    bmr += gender === "male" ? 5 : -161;
+
+    // Sedentary TDEE multiplier
+    const tdee = Math.round(bmr * 1.2);
+    const maintain = tdee;
+    const loss = tdee - 500;
+    const gain = tdee + 500;
 
     setResult({
       value: bmiValue.toFixed(1),
       classification,
       color,
       message,
+      calories: { maintain, loss, gain }
     });
   };
 
@@ -111,18 +124,7 @@ const BMICalculator = () => {
 
           {!result ? (
             <form onSubmit={calculateBMI} className="space-y-5 animate-fade-in">
-              <div className="space-y-1">
-                <label className="text-xs font-black text-brand-green/70 uppercase tracking-widest">Your Goal</label>
-                <select 
-                  className="w-full bg-white border-2 border-brand-green/10 rounded-xl p-3 text-brand-green font-bold focus:outline-none focus:border-brand-pink transition-colors appearance-none"
-                  value={goal}
-                  onChange={(e) => setGoal(e.target.value)}
-                >
-                  <option>Lose Weight</option>
-                  <option>Healthy Eating</option>
-                  <option>Gain Muscle</option>
-                </select>
-              </div>
+
 
               <div className="space-y-1">
                 <label className="text-xs font-black text-brand-green/70 uppercase tracking-widest">Gender</label>
@@ -171,9 +173,24 @@ const BMICalculator = () => {
                   <p className="text-brand-green/80 font-medium leading-relaxed mb-3">
                     {result.message}
                   </p>
-                  <p className="text-xs font-black text-brand-pink uppercase tracking-widest">
-                    Goal: {goal}
-                  </p>
+                  <div className="grid grid-cols-3 gap-2 mt-4">
+                    <div className="text-center p-2 bg-brand-green/5 rounded-xl border border-brand-green/10 flex flex-col items-center justify-center">
+                      <span className="text-[10px] font-black text-brand-green/60 uppercase tracking-widest mb-1">Loss</span>
+                      <span className="text-sm font-black text-brand-pink">{result.calories.loss}</span>
+                      <span className="text-[8px] font-bold text-brand-green/40 uppercase">kcal/day</span>
+                    </div>
+                    <div className="text-center p-2 bg-brand-green/5 rounded-xl border border-brand-green/10 flex flex-col items-center justify-center shadow-sm relative overflow-hidden">
+                      <div className="absolute top-0 left-0 w-full h-0.5 bg-brand-green opacity-20"></div>
+                      <span className="text-[10px] font-black text-brand-green/80 uppercase tracking-widest mb-1">Maintain</span>
+                      <span className="text-base font-black text-brand-green">{result.calories.maintain}</span>
+                      <span className="text-[8px] font-bold text-brand-green/40 uppercase">kcal/day</span>
+                    </div>
+                    <div className="text-center p-2 bg-brand-green/5 rounded-xl border border-brand-green/10 flex flex-col items-center justify-center">
+                      <span className="text-[10px] font-black text-brand-green/60 uppercase tracking-widest mb-1">Gain</span>
+                      <span className="text-sm font-black text-brand-pink">{result.calories.gain}</span>
+                      <span className="text-[8px] font-bold text-brand-green/40 uppercase">kcal/day</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
