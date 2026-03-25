@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Activity, Flame, Wind, Droplets } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronUp, Activity, Flame, Wind, Droplets } from "lucide-react";
 import homeVideo from "../assets/logo/Sample_Video.mp4";
 
 const bowls = [
@@ -33,12 +33,20 @@ const miniProducts = [
 
 const Home = () => {
   const [current, setCurrent] = useState(0);
+  const [showScroll, setShowScroll] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % bowls.length);
     }, 4000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setShowScroll(window.scrollY > 250);
+    window.addEventListener("scroll", onScroll);
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const nextSlide = () => setCurrent((prev) => (prev + 1) % bowls.length);
@@ -162,6 +170,16 @@ const Home = () => {
         </div>
 
       </div>
+
+      {showScroll && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Scroll to top"
+          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-brand-pink text-green shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
+        >
+          <ChevronUp size={22} />
+        </button>
+      )}
     </section>
   );
 };
