@@ -18,7 +18,7 @@ const products = [
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?q=80&w=600",
     description: "Pure Amazonian açaí, banana, berries, and artisanal granola.",
-    micronutrients: ["Vitamin C", "Antioxidants", "Iron"]
+    micronutrients: ["Vitamin C", "Antioxidants", "Iron", '500kcal']
   },
   {
     id: 2,

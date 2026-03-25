@@ -57,7 +57,7 @@ const Subscription = () => {
       <div className="max-w-7xl w-full">
         {/* Header */}
         <div className="text-center mb-24 space-y-4">
-          <h1 className="text-6xl sm:text-7xl font-black italic tracking-tighter text-brand-green uppercase leading-none">
+          <h1 className="text-4xl sm:text-7xl font-black italic tracking-tighter text-brand-green uppercase leading-none">
             Meal{" "}
             <span className="text-brand-pink underline decoration-brand-green/10 underline-offset-[12px] decoration-4">
               Subscriptions

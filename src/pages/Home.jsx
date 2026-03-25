@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, ChevronUp, Activity, Flame, Wind, Droplets } from "lucide-react";
 import homeVideo from "../assets/logo/Sample_Video.mp4";
+import BMICalculator from "../components/BMICalculator";
+
 
 const bowls = [
   {
@@ -180,6 +182,8 @@ const Home = () => {
           <ChevronUp size={22} />
         </button>
       )}
+      
+      <BMICalculator />
     </section>
   );
 };

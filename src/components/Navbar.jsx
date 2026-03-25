@@ -62,7 +62,11 @@ const Navbar = () => {
 
         {/* Left Section: Logo Only */}
         <div className="flex-shrink-0 flex items-center justify-start">
-          <Link to="/" className="shrink-0 flex items-center">
+          <Link 
+            to="/" 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            className="shrink-0 flex items-center"
+          >
             <div className="p-1 sm:p-2 rounded-full transform hover:scale-110 transition-transform">
               <img src={logo_no_bg} alt="Go-Humbl. Logo" className="h-10 sm:h-14 lg:h-18 w-auto object-contain " />
             </div>
