@@ -12,7 +12,7 @@ const Terms = () => {
           <ArrowLeft size={20} /> Back Home
         </Link>
         
-        <h1 className="text-6xl font-black italic tracking-tighter mb-10 leading-none">Terms & <span className="text-white">Conditions</span>.</h1>
+        <h1 className="text-6xl font-black italic tracking-tighter mb-10 leading-none">Terms & <span className="text-white">Conditions</span></h1>
         
         <div className="prose-xl italic font-medium leading-relaxed space-y-12">
           <div className="bg-brand-white/10 p-8 rounded-[2.5rem]">
