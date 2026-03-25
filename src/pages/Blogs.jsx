@@ -9,7 +9,7 @@ const Blogs = () => {
         {/* Header */}
         <div className="mb-14">
           <h1 className="text-[3.5rem] sm:text-[4rem] font-black italic tracking-tighter text-brand-green leading-none mb-2 capitalize">
-            Blog & Articles.
+            Blog & Articles
           </h1>
         </div>
 

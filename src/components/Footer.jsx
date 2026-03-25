@@ -18,6 +18,13 @@ const popularArticles = [
   "WHAT TO EAT WHEN YOU HAVE FLU?",
 ];
 
+const socialLinks = [
+  { Icon: Twitter, label: "Twitter", href: "#" },
+  { Icon: Facebook, label: "Facebook", href: "#" },
+  { Icon: Youtube, label: "YouTube", href: "#" },
+  { Icon: Instagram, label: "Instagram", href: "#" },
+];
+
 const Footer = () => {
   return (
     <footer className="bg-brand-green text-white pt-16 pb-12 px-4 sm:px-10 overflow-hidden w-full">
@@ -78,9 +85,17 @@ const Footer = () => {
             </div>
 
             <div className="flex gap-4">
-              {[Twitter, Facebook, Youtube, Instagram].map((Icon, idx) => (
-                <a key={idx} href="#" className="bg-white/10 p-3 rounded-full hover:bg-white text-white hover:text-brand-green transition-all shadow-md">
+              {socialLinks.map(({ Icon, label, href }, idx) => (
+                <a
+                  key={idx}
+                  href={href}
+                  aria-label={label}
+                  className="relative group bg-white/10 p-3 rounded-full hover:bg-white text-white hover:text-brand-green transition-all shadow-md"
+                >
                   <Icon size={20} />
+                  <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-full px-2 py-1 text-xs font-semibold text-brand-green bg-white rounded-md opacity-0 pointer-events-none transition-all duration-200 group-hover:opacity-100">
+                    {label}
+                  </span>
                 </a>
               ))}
             </div>

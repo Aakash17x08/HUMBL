@@ -70,7 +70,7 @@ const Home = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-green"></span>
               </span>
-              Premium Vegetarian Bowls
+              Premium Healthy Bowls
             </div>
             <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black italic tracking-tighter text-brand-green uppercase leading-[0.9]">
               Eat <span className="text-white">Fresh</span>,<br />
