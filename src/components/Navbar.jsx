@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { Menu, X, ShoppingBag, User } from 'lucide-react';
 import logo_no_bg from '../assets/logo/Updated_logo.png';
+import AuthModal from './AuthModal';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [cartCount, setCartCount] = useState(0);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -53,7 +55,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled
+    <>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled
       ? 'h-[70px] shadow-lg bg-brand-green/95 backdrop-blur-md'
       : 'h-[90px] bg-brand-green'
       }`}
@@ -92,6 +95,13 @@ const Navbar = () => {
 
         {/* Right Section: Toggle, Cart & Action */}
         <div className="flex-shrink-0 flex items-center justify-end gap-2 sm:gap-5">
+          <button
+            onClick={() => setIsAuthModalOpen(true)}
+            className="p-2 transition-all rounded-full text-white hover:bg-white/10"
+            title="Account"
+          >
+            <User size={24} strokeWidth={2.5} />
+          </button>
           <Link
             to="/cart"
             className="relative p-2 transition-all rounded-full text-white hover:bg-white/10"
@@ -130,7 +140,14 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-    </nav>
+      </nav>
+      
+      {/* Auth Modal overlay */}
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+      />
+    </>
   );
 };
 
