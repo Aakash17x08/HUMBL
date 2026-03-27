@@ -1,71 +1,99 @@
-# Frontend Setup and Architecture Documentation
+# Go-Humbl: Technical Specification & Architecture Document
 
-This document summarizes the steps taken to implement the new navigation system and establish a clear, maintainable file structure for the **Humbl** application.
+![Go-Humbl Website UI Preview](./public/ui-preview.png)
 
-## 1. Goal
-The primary objective was to set up client-side routing and implement a responsive, modern Navigation bar (`Navbar`) to seamlessly switch between different pages without reloading the application. Additionally, we transitioned away from the default Vite boilerplate into a structured, scalable application directory blueprint.
+## 1. Executive Summary
+**Go-Humbl** is a modern, responsive web application engineered to deliver premium, nutrient-dense vegetarian bowls and healthy diet plans. Designed with cutting-edge frontend architecture, it boasts a buttery-smooth user experience, seamless animations, and high performance. It operates natively as a Single Page Application (SPA), ensuring instantaneous navigation and state persistance.
 
-## 2. Dependencies Installed
-To achieve this, we added the following packages:
-- **`react-router-dom`**: Used for client-side routing structure (`BrowserRouter`, `Routes`, `Route`, `NavLink`).
-- **`lucide-react`**: Used for lightweight, scaleable SVG icons (e.g., Hamburger Menu `Menu` and Close `X` icons for mobile responsiveness).
+---
 
-## 3. Directory Structure
-We established a standard, modular React directory structure. Instead of having all files clumped in `src/`, logic is separated by concern:
+## 2. Technology Stack
+The platform is built using a modern decoupled front-end architecture:
 
-```bash
+- **Core Framework**: React (v19.x) - Provides component-based architecture and reactive UI binding.
+- **Build Tooling**: Vite (v8.x) - Ensures lightning-fast HMR (Hot Module Replacement) and optimized production bundles.
+- **Routing**: React Router DOM (v7.x) - Handles client-side routing, preserving the SPA experience.
+- **Styling Pipeline**: Tailwind CSS (v4.x) - A utility-first CSS framework enabling rapid, responsive UI development.
+- **Icons**: Lucide React - A robust, consistent icon library replacing traditional SVG sprite sheets.
+- **State Management**: React Context API (`CartContext`) combined with localized React Hooks (`useState`, `useEffect`).
+
+---
+
+## 3. High-Level Architecture Design
+
+### 3.1. System Overview
+The application follows a strictly modular React architecture separating Concerns into clearly defined namespaces: Pages, Components, Data, and Contexts. It executes solely on the client-side (CSR), rendering views dynamically based on user interaction. 
+
+### 3.2. Directory Structure (`/src` Layer)
+```text
 src/
-├── assets/                  # Static files (images, SVGs)
-├── components/              # Reusable UI components
-│   └── Navbar/              
-│       ├── Navbar.jsx       # Main navigation bar component
-│       └── Navbar.css       # Styles scoped specifically to the Navbar
-├── pages/                   # Top-level page components representing valid routes
-│   ├── Home.jsx             # Home page (/)
-│   ├── About.jsx            # About page (/about)
-│   ├── Blogs.jsx            # Blogs page (/blogs)
-│   ├── Contact.jsx          # Contact page (/contact)
-│   ├── Products.jsx         # Products page (/products)
-│   └── Subscription.jsx     # Subscription page (/subscription)
-├── App.jsx                  # The main application layout where all Routes are defined
-├── App.css                  # Global layout constraints and page container styling
-├── index.css                # Global CSS reset, typography, and variable definitions (Inter font)
-└── main.jsx                 # The application entry point
+├── assets/            # Static media (Images, Vector Logos)
+├── components/        # Reusable, stateless, and complex stateful components
+│   ├── AuthModal.jsx  # Modular Authentication overlay component
+│   ├── BMICalculator.jsx # Floating interactive BMI calculating tool
+│   ├── Footer.jsx     # Global Footer
+│   ├── Navbar.jsx     # Global Navigation with scroll spying 
+│   └── ScrollToHash.jsx # Utility for Anchor Link hash routing
+├── context/           # Global State Management Contexts
+│   └── CartContext.jsx  # Holds Cart Object, addToCart, and Quantity reducers
+├── data/              # Static Mock JSON/Data layer (if applicable)
+├── pages/             # Route-level components mapping to specific URLs
+│   ├── Home.jsx             # Hero Section / Landing
+│   ├── Products.jsx         # Product catalog with categorical filters
+│   ├── Cart.jsx             # Active session checkout cart
+│   ├── About.jsx            # Brand mission statement
+│   ├── Contact.jsx          # User inquiries and location data
+│   ├── Subscription.jsx     # Recurring meal plan details
+│   ├── Blogs.jsx, BlogPost.jsx # Content marketing domain
+│   ├── FAQ.jsx, Terms.jsx, Privacy.jsx # Legal and Support pages
+├── App.jsx            # Main Shell assembling the router and global layouts
+├── main.jsx           # Application entry point binding React DOM
+└── index.css          # Tailwind directives and CSS variables
 ```
 
-### Why this structure?
-- **Separation of Concerns**: UI elements that will be reused across different views go into `/components`. Entire screens go into `/pages`.
-- **Maintainability**: If styling for the Navbar needs to be changed, you instantly know to check `components/Navbar/Navbar.css` instead of digging through a highly cluttered `index.css`.
+---
 
-## 4. Implementation Details
+## 4. Key Functional Modules
 
-### `App.jsx`
-- We wrapped the entire application inside a `<Router>` component.
-- The `<Navbar />` is placed *outside* of the `<Routes>` block so it renders persistently across every page.
-- The `<Routes>` definition maps specific URL paths to their corresponding `Page` components.
+### 4.1. Global Cart Context (`CartContext`)
+Engineered to allow scalable cart operations across the entire session lifecycle. 
+- **State**: Array of `products` infused with dynamic `quantity` integers.
+- **Methods**: `addToCart`, `removeFromCart`, `updateQuantity`, `clearCart`.
+- **Integrations**: `Navbar.jsx` natively computes and watches the `cartCount` badge. `Products.jsx` pushes values to this store while simultaneously triggering toast notifications automatically.
 
-### `Navbar.jsx`
-- Designed adhering to **Glassmorphism** styling for a clean, premium modern aesthetic.
-- The active link logic is achieved using `<NavLink>` from `react-router-dom`. When a user clicks a nav item, it dynamically highlights it to indicate the active page.
-- **Mobile Responsiveness**: Uses a local component state (`isOpen`, `setIsOpen`) to toggle a full-screen blurred menu overlay on screens under `960px`.
+### 4.2. Scroll-Spy Navigation UI
+The `Navbar.jsx` incorporates an advanced event-listener hook that maps `window.scrollY` iteratively against component anchor depths (`offsetTop`). This achieves seamless visual tracking on the navigation pill indicating the current viewpoint within the Single Page framework. 
 
-### `index.css` & `App.css`
-- Reset the standard CSS, integrated the `Inter` font family from Google Fonts.
-- Set up a standard `.page-container` CSS class that applies a consistent maximum width, padding, and subtle fade-in animation to all new pages.
+### 4.3. Floating BMI Engine
+A specialized diagnostic `BMICalculator.jsx` module is pinned globally.
+- **Features**: Performs real-time mathematical operations to compute Body Mass Index, mapping the integer to defined health zones (Underweight, Normal, Overweight, Obese) using dynamic color-coding.
 
-## 5. How to Add a New Page
-If you ever want to add a new page (e.g., a "FAQ" page):
-1. **Create the file**: Create `FAQ.jsx` inside the `src/pages/` folder.
-2. **Export a React component**: Use the default boilerplate and wrap the content in `<div className="page-container">`. 
-3. **Add the Route**: Open `src/App.jsx`, import your new `FAQ.jsx` file, and add `<Route path="/faq" element={<FAQ />} />` to the `<Routes>` section.
-4. **Update the Navbar**: Open `src/components/Navbar/Navbar.jsx` and add a new `<NavLink to="/faq">FAQ</NavLink>` in the `<ul className="nav-menu">`.
+### 4.4. Authentication Module (`AuthModal.jsx`)
+Features a customized backdrop modal controlling local session intents. Utilizes complex focus trapping and graceful transitions between `Sign Up` and `Login` logic states utilizing an independent controlled state variable inside `Navbar`.
 
-## 6. How to Run
-Ensure you have the dependencies installed:
-```bash
-npm install
-```
-Start the development server:
-```bash
-npm run dev
-```
+---
+
+## 5. UI / UX & Design System Guidelines
+
+- **Typography**: Employs bold, italicized, and geometric typeface stacks for headers, providing an energetic, sporting, and premium feel. 
+- **Color Palette Variables**:
+  - Primary Brand Green: `#4B664B` or similar dark emerald hues mapping brand freshness.
+  - Secondary Accents: Vibrant Pinks/Beiges enabling sharp, modern contrast points.
+- **Glassmorphism Edge**: Modals, drop-down menus, and cart elements leverage `backdrop-blur` techniques mixed with transparent white layers to construct optical depth.
+- **Micro-interactions**: Hover effects scale primary entities (like product cards, floating buttons) utilizing `transition-all` alongside precise `ease-in-out` timing functions (typically ranging between `300ms` and `700ms`).
+
+---
+
+## 6. Performance & Operational Standards
+
+1. **Rendering Overheads**: Core components minimize re-renders by centralizing logic efficiently.
+2. **Responsive Fluidity**: Follows a "Mobile-First" progressive enhancement methodology. Utility classes `sm:`, `md:`, `lg:`, `xl:` natively break layouts shifting grids and flex directions synchronously with viewport dimensional changes.
+3. **Data Immutability**: React Context heavily conforms to immutable state handling during cart alterations to prevent destructive overwriting behaviors.
+
+---
+
+## 7. Version Control & Expansion Vectors
+For future expansions, the logical boundaries defined here empower the following growth vectors:
+- Replacing the mocked logic in `AuthModal` with an Identity Provider (e.g., Firebase Auth, Auth0).
+- Expanding `CartContext` into a localized storage persistence handler or plugging it directly into a headless Stripe / Shopify API endpoint. 
+- Generating dynamically routed blogs mapping to headless CMS models (Contentful, Sanity).
