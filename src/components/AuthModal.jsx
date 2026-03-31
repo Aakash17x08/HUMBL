@@ -85,7 +85,7 @@ const AuthModal = ({ isOpen, onClose }) => {
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [registerData, setRegisterData] = useState({ 
     name: '', goals: [], importantHabit: '', mealPlanning: '', activityLevel: 'moderate',
-    gender: 'male', age: '', country: '', heightFeet: '', heightInches: '', weight: '',
+    gender: 'male', age: '', phoneNumber: '', heightFeet: '', heightInches: '', weight: '',
     email: '', password: '', confirmPassword: ''
   });
 
@@ -131,7 +131,7 @@ const AuthModal = ({ isOpen, onClose }) => {
       case 3: return registerData.importantHabit.length > 0;
       case 4: return registerData.mealPlanning.length > 0;
       case 5: return registerData.activityLevel.length > 0;
-      case 6: return registerData.age && registerData.country;
+      case 6: return registerData.age && registerData.phoneNumber;
       case 7: return registerData.heightFeet && registerData.weight;
       case 8: return registerData.email && registerData.password && registerData.confirmPassword;
       default: return true;
@@ -313,14 +313,14 @@ const AuthModal = ({ isOpen, onClose }) => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-brand-green font-bold mb-1 ml-2 text-sm">Country</label>
+                  <label className="block text-brand-green font-bold mb-1 ml-2 text-sm">Phone Number</label>
                   <input
-                    type="text" name="country" value={registerData.country} onChange={handleRegisterChange} required
+                    type="tel" name="phoneNumber" value={registerData.phoneNumber} onChange={handleRegisterChange} required
                     className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-2 text-brand-dark focus:outline-none focus:border-brand-green"
-                    placeholder="India"
+                    placeholder="9990000000"
                   />
                 </div>
-                <button onClick={handleNext} disabled={!registerData.age || !registerData.country} className="btn-primary w-full mt-4 py-3 rounded-full text-lg disabled:opacity-50">Next Section</button>
+                <button onClick={handleNext} disabled={!registerData.age || !registerData.phoneNumber} className="btn-primary w-full mt-4 py-3 rounded-full text-lg disabled:opacity-50">Next Section</button>
               </div>
             )}
 
