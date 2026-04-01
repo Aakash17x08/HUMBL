@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { X, ChevronDown, ChevronLeft } from 'lucide-react';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../config/firebase';
 
 const SelectionButton = ({ label, selected, onClick }) => (
   <button
@@ -81,6 +83,7 @@ const mealPlanningOptions = [
 const AuthModal = ({ isOpen, onClose }) => {
   const [mode, setMode] = useState('login'); // 'login' or 'register'
   const [registerStep, setRegisterStep] = useState(1);
+  const [error, setError] = useState('');
   
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [registerData, setRegisterData] = useState({ 
@@ -103,25 +106,58 @@ const AuthModal = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login attempt:', loginData);
-    alert('Backend integration is pending.');
-    onClose();
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        loginData.email,
+        loginData.password
+      );
+
+      const token = await userCredential.user.getIdToken();
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(userCredential.user));
+      
+      console.log('Firebase Token:', token); 
+      console.log('✅ Logged in:', loginData);
+      onClose();
+    } catch (err) {
+      console.error(err.message);
+      setError('Invalid email or password.');
+    }
   };
 
   const handleNext = () => setRegisterStep(prev => prev + 1);
   const handleBack = () => setRegisterStep(prev => prev - 1);
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     if (registerData.password !== registerData.confirmPassword) {
-      alert("Passwords don't match!");
+      setError("Passwords don't match!");
       return;
     }
-    console.log('Final Registration attempt:', registerData);
-    alert('Backend integration is pending.');
-    onClose();
+    
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        registerData.email,
+        registerData.password
+      );
+
+      const token = await userCredential.user.getIdToken();
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(userCredential.user));
+
+      console.log('Firebase Token:', token);
+      console.log('✅ Final Registration successful:', registerData);
+      onClose();
+    } catch (err) {
+      console.error(err.message);
+      setError(err.message);
+    }
   };
 
   const isStepValid = () => {
@@ -186,6 +222,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                   placeholder="••••••••"
                 />
               </div>
+              {error && <p className="text-red-500 text-sm italic font-bold text-center -mt-2">{error}</p>}
               <div className="flex justify-end -mt-2">
                 <a href="#" className="text-brand-green hover:text-white text-xs font-bold transition-colors italic">Forgot password?</a>
               </div>
@@ -390,6 +427,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                     />
                   </div>
                 </div>
+                {error && <p className="text-red-500 text-sm italic font-bold text-center mt-2">{error}</p>}
                 <button type="submit" className="btn-primary w-full mt-6 py-4 rounded-full text-xl">Complete Registration</button>
               </form>
             )}
