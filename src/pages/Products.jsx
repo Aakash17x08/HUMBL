@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Star, ChevronRight, Apple, Soup, Coffee, LayoutGrid } from 'lucide-react';
+import { Star, ChevronRight, Apple, Soup, Coffee, LayoutGrid, CheckCircle } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 const categories = [
   { id: "All", icon: <LayoutGrid size={20} /> },
@@ -74,6 +75,18 @@ const products = [
 
 const Products = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+  const { addToCart } = useCart();
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setToastMessage(`${product.name} added to cart!`);
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+  };
 
   const filteredProducts = activeCategory === "All" 
     ? products 
@@ -157,12 +170,12 @@ const Products = () => {
                       <p className="text-xl font-black text-brand-green uppercase tracking-tighter">{product.price}/-</p>
                     </div>
 
-                    <Link 
-                      to="/#subscription" 
+                    <button 
+                      onClick={() => handleAddToCart(product)}
                       className="w-full bg-brand-pink text-white py-4 rounded-2xl font-black italic text-center text-sm tracking-widest hover:bg-brand-green transition-all shadow-lg active:scale-95"
                     >
                       ORDER NOW
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -176,6 +189,16 @@ const Products = () => {
           )}
         </div>
 
+      </div>
+
+      {/* Toast Notification */}
+      <div 
+        className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-3 bg-brand-green text-white px-6 py-4 rounded-full shadow-2xl transition-all duration-300 ${
+          showToast ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
+        }`}
+      >
+        <CheckCircle className="text-brand-pink" size={24} />
+        <span className="font-bold tracking-wide">{toastMessage}</span>
       </div>
     </section>
   );

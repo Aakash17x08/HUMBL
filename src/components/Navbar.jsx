@@ -3,12 +3,17 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingBag, User } from 'lucide-react';
 import logo_no_bg from '../assets/logo/Updated_logo.png';
 import AuthModal from './AuthModal';
+import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [cartCount, setCartCount] = useState(0);
+  const { cart } = useCart();
+  
+  // Calculate total items in cart
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const location = useLocation();
 
