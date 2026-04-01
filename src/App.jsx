@@ -11,6 +11,7 @@ import Products from './pages/Products';
 import Blogs from './pages/Blogs';
 import Subscription from './pages/Subscription';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import BlogPost from './pages/BlogPost';
 import FAQ from './pages/FAQ';
 import Terms from './pages/Terms';
@@ -36,6 +37,7 @@ function App() {
               </>
             } />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/terms" element={<Terms />} />

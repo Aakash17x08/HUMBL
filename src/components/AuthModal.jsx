@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { X, ChevronDown, ChevronLeft } from 'lucide-react';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../config/firebase';
+import { auth, db } from '../config/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { useUser } from '../context/UserContext';
 
 const SelectionButton = ({ label, selected, onClick }) => (
   <button
@@ -80,6 +82,7 @@ const mealPlanningOptions = [
 ];
 
 const AuthModal = ({ isOpen, onClose }) => {
+  const { calculateCalories } = useUser();
   const [mode, setMode] = useState('login'); // 'login' or 'register'
   const [registerStep, setRegisterStep] = useState(1);
   const [error, setError] = useState('');
@@ -90,6 +93,7 @@ const AuthModal = ({ isOpen, onClose }) => {
   const [registerData, setRegisterData] = useState({
     name: '', goals: [], importantHabit: '', mealPlanning: '', activityLevel: 'moderate',
     gender: 'male', age: '', phoneNumber: '', heightFeet: '', heightInches: '', weight: '',
+    streetaddress: '', landmark: '', postalCode: '', altPhoneNumber: '',
     email: '', password: '', confirmPassword: ''
   });
 
@@ -120,9 +124,8 @@ const AuthModal = ({ isOpen, onClose }) => {
       const token = await userCredential.user.getIdToken();
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userCredential.user));
+      console.log('🔑 Login Success. Token:', token);
 
-      console.log('Firebase Token:', token);
-      console.log('✅ Logged in:', loginData);
       onClose();
     } catch (err) {
       console.error(err.message);
@@ -148,12 +151,24 @@ const AuthModal = ({ isOpen, onClose }) => {
         registerData.password
       );
 
-      const token = await userCredential.user.getIdToken();
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(userCredential.user));
+      const user = userCredential.user;
+      const calories = calculateCalories(registerData);
+      
+      // Save extra data to Firestore
+      const { password, confirmPassword, ...userData } = registerData;
+      await setDoc(doc(db, "users", user.uid), {
+        ...userData,
+        calories,
+        uid: user.uid,
+        createdAt: new Date()
+      });
 
-      console.log('Firebase Token:', token);
-      console.log('✅ Final Registration successful:', registerData);
+      const token = await user.getIdToken();
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      console.log('🔑 Registration Success. Token:', token);
+      console.log('📝 Registered User Data:', userData);
+
       onClose();
     } catch (err) {
       console.error(err.message);
@@ -170,7 +185,8 @@ const AuthModal = ({ isOpen, onClose }) => {
       case 5: return registerData.activityLevel.length > 0;
       case 6: return registerData.age && registerData.phoneNumber;
       case 7: return registerData.heightFeet && registerData.weight;
-      case 8: return registerData.email && registerData.password && registerData.confirmPassword;
+      case 8: return registerData.streetaddress && registerData.postalCode;
+      case 9: return registerData.email && registerData.password && registerData.confirmPassword;
       default: return true;
     }
   };
@@ -407,32 +423,81 @@ const AuthModal = ({ isOpen, onClose }) => {
             )}
 
             {registerStep === 8 && (
-              <form onSubmit={handleRegisterSubmit} className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4">
                 <h2 className="text-3xl font-black italic tracking-tighter text-brand-green mb-4 uppercase text-center leading-tight">
-                  Finally, create your <span className="text-white">credentials</span>
+                  Where should we <span className="text-white">deliver?</span>
                 </h2>
                 <div>
-                  <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold">Email</label>
+                  <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold uppercase tracking-wider opacity-70">Street Address</label>
+                  <textarea
+                    name="streetaddress" value={registerData.streetaddress} onChange={handleRegisterChange} required
+                    className="w-full bg-white border-2 border-brand-green/30 rounded-3xl px-4 py-3 text-brand-dark focus:outline-none focus:ring-2 focus:ring-brand-green/20 min-h-[100px] resize-none"
+                    placeholder="House No, Building, Street Name..."
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold uppercase tracking-wider opacity-70">Landmark</label>
+                    <input
+                      type="text" name="landmark" value={registerData.landmark} onChange={handleRegisterChange}
+                      className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-2 text-brand-dark"
+                      placeholder="Near Park"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold uppercase tracking-wider opacity-70">Postal Code</label>
+                    <input
+                      type="text" name="postalCode" value={registerData.postalCode} onChange={handleRegisterChange} required
+                      className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-2 text-brand-dark"
+                      placeholder="411014"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold uppercase tracking-wider opacity-70">Alt Mobile (Optional)</label>
+                  <input
+                    type="tel" name="altPhoneNumber" value={registerData.altPhoneNumber} onChange={handleRegisterChange}
+                    className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-2 text-brand-dark"
+                    placeholder="9990000000"
+                  />
+                </div>
+                <button onClick={handleNext} disabled={!registerData.streetaddress || !registerData.postalCode} className="btn-primary w-full mt-4 py-3 rounded-full text-lg disabled:opacity-50">Continue</button>
+              </div>
+            )}
+
+            {registerStep === 9 && (
+              <form onSubmit={handleRegisterSubmit} className="flex flex-col gap-4">
+                <h2 className="text-3xl font-black italic tracking-tighter text-brand-green mb-0 uppercase text-center leading-tight">
+                  Finally, create your <span className="text-white">credentials</span>
+                </h2>
+                
+                <div className="bg-white/20 backdrop-blur-md rounded-3xl p-4 border-2 border-brand-green/30 text-center mb-2">
+                  <p className="text-brand-green font-bold text-sm uppercase tracking-wider mb-1">Your Estimated Daily Calories</p>
+                  <p className="text-4xl font-black text-white italic">{calculateCalories(registerData)} <span className="text-lg">kcal</span></p>
+                </div>
+
+                <div>
+                  <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold uppercase tracking-wider opacity-70">Email</label>
                   <input
                     type="email" name="email" value={registerData.email} onChange={handleRegisterChange} required
-                    className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-2 text-brand-dark"
+                    className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-3 text-brand-dark"
                     placeholder="you@example.com"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold">Password</label>
+                    <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold uppercase tracking-wider opacity-70">Password</label>
                     <input
                       type={showPassword ? "text" : "password"} name="password" value={registerData.password} onChange={handleRegisterChange} required
-                      className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-2 text-brand-dark"
+                      className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-3 text-brand-dark"
                       placeholder="••••••••"
                     />
                   </div>
                   <div>
-                    <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold">Confirm</label>
+                    <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold uppercase tracking-wider opacity-70">Confirm</label>
                     <input
                       type={showPassword ? "text" : "password"} name="confirmPassword" value={registerData.confirmPassword} onChange={handleRegisterChange} required
-                      className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-2 text-brand-dark"
+                      className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-3 text-brand-dark"
                       placeholder="••••••••"
                     />
                   </div>

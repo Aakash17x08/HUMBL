@@ -3,19 +3,31 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingBag, User } from 'lucide-react';
 import logo_no_bg from '../assets/logo/Updated_logo.png';
 import AuthModal from './AuthModal';
+import AccountModal from './AccountModal';
 import { useCart } from '../context/CartContext';
+import { useUser } from '../context/UserContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { cart } = useCart();
+  const { user } = useUser();
   
   // Calculate total items in cart
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const location = useLocation();
+
+  const handleUserClick = () => {
+    if (user) {
+      setIsAccountModalOpen(true);
+    } else {
+      setIsAuthModalOpen(true);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,11 +113,17 @@ const Navbar = () => {
         {/* Right Section: Toggle, Cart & Action */}
         <div className="flex-shrink-0 flex items-center justify-end gap-2 sm:gap-5">
           <button
-            onClick={() => setIsAuthModalOpen(true)}
+            onClick={handleUserClick}
             className="p-2 transition-all rounded-full text-white hover:bg-white/10"
             title="Account"
           >
-            <User size={24} strokeWidth={2.5} />
+            {user ? (
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center font-bold text-xs uppercase">
+                {user.email.charAt(0)}
+              </div>
+            ) : (
+              <User size={24} strokeWidth={2.5} />
+            )}
           </button>
           <Link
             to="/cart"
@@ -147,10 +165,14 @@ const Navbar = () => {
       </div>
       </nav>
       
-      {/* Auth Modal overlay */}
+      {/* Modals */}
       <AuthModal 
         isOpen={isAuthModalOpen} 
         onClose={() => setIsAuthModalOpen(false)} 
+      />
+      <AccountModal
+        isOpen={isAccountModalOpen}
+        onClose={() => setIsAccountModalOpen(false)}
       />
     </>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import { Minus, Plus, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity } = useCart();
@@ -58,9 +59,9 @@ const Cart = () => {
                 <p className="text-lg font-bold opacity-80 mb-1">Total Amount</p>
                 <p className="text-4xl font-black italic tracking-tighter">₹{totalAmount}</p>
               </div>
-              <button className="w-full sm:w-auto px-12 py-4 bg-brand-green text-white font-black italic rounded-xl text-lg hover:bg-brand-pink transition-colors shadow-lg shadow-brand-green/30">
+              <Link to="/checkout" className="w-full sm:w-auto px-12 py-4 bg-brand-green text-white font-black italic rounded-xl text-lg hover:bg-brand-pink transition-colors shadow-lg shadow-brand-green/30 text-center uppercase">
                 PROCEED TO CHECKOUT
-              </button>
+              </Link>
             </div>
           </div>
         )}
