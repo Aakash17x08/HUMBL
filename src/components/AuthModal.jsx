@@ -8,8 +8,8 @@ const SelectionButton = ({ label, selected, onClick }) => (
     type="button"
     onClick={onClick}
     className={`w-full py-4 px-6 rounded-2xl text-lg font-bold transition-all border-2 mb-3 text-center
-      ${selected 
-        ? 'bg-brand-green text-white border-brand-green shadow-lg scale-[1.02]' 
+      ${selected
+        ? 'bg-brand-green text-white border-brand-green shadow-lg scale-[1.02]'
         : 'bg-white text-brand-dark border-gray-200 hover:border-brand-green/50 hover:bg-brand-green/5'
       }`}
   >
@@ -23,14 +23,14 @@ const CustomSelect = ({ value, onChange, options, name }) => {
 
   return (
     <div className="relative w-full">
-      <div 
+      <div
         onClick={() => setIsOpen(!isOpen)}
         className="w-full bg-white border-2 border-brand-green/30 rounded-full px-5 py-2.5 text-brand-dark focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 transition-all font-medium cursor-pointer flex justify-between items-center text-sm"
       >
         <span className="truncate pr-4">{currentLabel}</span>
         <ChevronDown size={18} className={`flex-shrink-0 transition-transform duration-200 text-brand-green ${isOpen ? 'rotate-180' : ''}`} />
       </div>
-      
+
       {isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)}></div>
@@ -42,11 +42,10 @@ const CustomSelect = ({ value, onChange, options, name }) => {
                   onChange({ target: { name, value: option.value } });
                   setIsOpen(false);
                 }}
-                className={`px-4 py-2.5 rounded-2xl cursor-pointer text-sm font-medium transition-colors ${
-                  value === option.value 
-                    ? 'text-brand-dark bg-brand-green/10 font-bold' 
+                className={`px-4 py-2.5 rounded-2xl cursor-pointer text-sm font-medium transition-colors ${value === option.value
+                    ? 'text-brand-dark bg-brand-green/10 font-bold'
                     : 'text-brand-dark hover:bg-brand-green hover:text-white'
-                }`}
+                  }`}
               >
                 {option.label}
               </div>
@@ -84,9 +83,11 @@ const AuthModal = ({ isOpen, onClose }) => {
   const [mode, setMode] = useState('login'); // 'login' or 'register'
   const [registerStep, setRegisterStep] = useState(1);
   const [error, setError] = useState('');
+
+  const [showPassword, setShowPassword] = useState(false);
   
   const [loginData, setLoginData] = useState({ email: '', password: '' });
-  const [registerData, setRegisterData] = useState({ 
+  const [registerData, setRegisterData] = useState({
     name: '', goals: [], importantHabit: '', mealPlanning: '', activityLevel: 'moderate',
     gender: 'male', age: '', phoneNumber: '', heightFeet: '', heightInches: '', weight: '',
     email: '', password: '', confirmPassword: ''
@@ -119,8 +120,8 @@ const AuthModal = ({ isOpen, onClose }) => {
       const token = await userCredential.user.getIdToken();
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userCredential.user));
-      
-      console.log('Firebase Token:', token); 
+
+      console.log('Firebase Token:', token);
       console.log('✅ Logged in:', loginData);
       onClose();
     } catch (err) {
@@ -139,7 +140,7 @@ const AuthModal = ({ isOpen, onClose }) => {
       setError("Passwords don't match!");
       return;
     }
-    
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -161,7 +162,7 @@ const AuthModal = ({ isOpen, onClose }) => {
   };
 
   const isStepValid = () => {
-    switch(registerStep) {
+    switch (registerStep) {
       case 1: return registerData.name.length > 0;
       case 2: return registerData.goals.length > 0;
       case 3: return registerData.importantHabit.length > 0;
@@ -176,19 +177,19 @@ const AuthModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in" onClick={onClose}>
-      <div 
+      <div
         className="bg-brand-pink relative w-full max-w-md max-h-[90vh] overflow-y-auto rounded-[3rem] p-8 sm:p-10 shadow-2xl border-4 border-brand-green scrollbar-hide"
         onClick={e => e.stopPropagation()}
       >
-        <button 
-          onClick={onClose} 
+        <button
+          onClick={onClose}
           className="absolute top-6 right-6 p-2 rounded-full bg-brand-white/40 text-brand-green hover:bg-white transition-colors z-[110]"
         >
           <X size={24} strokeWidth={3} />
         </button>
 
         {registerStep > 1 && mode === 'register' && (
-          <button 
+          <button
             onClick={handleBack}
             className="absolute top-6 left-6 p-2 rounded-full bg-brand-white/40 text-brand-green hover:bg-white transition-colors z-[110]"
           >
@@ -204,7 +205,7 @@ const AuthModal = ({ isOpen, onClose }) => {
             <p className="text-sm text-brand-green font-medium text-center italic opacity-85 mb-6">
               Log in to continue picking up where you left off.
             </p>
-            
+
             <form onSubmit={handleLoginSubmit} className="flex flex-col gap-5">
               <div>
                 <label className="block text-brand-green font-bold mb-1.5 ml-2 text-sm" htmlFor="login-email">Email Address</label>
@@ -217,10 +218,19 @@ const AuthModal = ({ isOpen, onClose }) => {
               <div>
                 <label className="block text-brand-green font-bold mb-1.5 ml-2 text-sm" htmlFor="login-password">Password</label>
                 <input
-                  type="password" id="login-password" name="password" value={loginData.password} onChange={handleLoginChange} required
+                  type={showPassword ? "text" : "password"} id="login-password" name="password" value={loginData.password} onChange={handleLoginChange} required
                   className="w-full bg-white border-2 border-brand-green/30 rounded-full px-5 py-2.5 text-brand-dark focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/20 transition-all font-medium"
                   placeholder="••••••••"
                 />
+                <label className="flex items-center gap-2 mt-2 ml-2 text-brand-green text-xs font-bold cursor-pointer">
+                  <input 
+                    type="checkbox" 
+                    checked={showPassword} 
+                    onChange={() => setShowPassword(!showPassword)} 
+                    className="w-4 h-4 rounded accent-brand-green"
+                  />
+                  Show password
+                </label>
               </div>
               {error && <p className="text-red-500 text-sm italic font-bold text-center -mt-2">{error}</p>}
               <div className="flex justify-end -mt-2">
@@ -254,15 +264,15 @@ const AuthModal = ({ isOpen, onClose }) => {
             {registerStep === 2 && (
               <div className="flex flex-col gap-4">
                 <h2 className="text-2xl font-black italic tracking-tighter text-brand-green mb-0 uppercase text-center leading-tight">
-                  Thanks {registerData.name}! <br/><span className="text-white text-4xl">Now for your goals.</span>
+                  Thanks {registerData.name}! <br /><span className="text-white text-4xl">Now for your goals.</span>
                 </h2>
                 <p className="text-center text-brand-green/80 font-bold mb-4 text-sm italic">Select up to 3 that are important to you.</p>
                 <div className="flex flex-col gap-1 max-h-[40vh] overflow-y-auto px-2 scrollbar-hide mb-4">
                   {goalOptions.map(goal => (
-                    <SelectionButton 
-                      key={goal} label={goal} 
-                      selected={registerData.goals.includes(goal)} 
-                      onClick={() => handleGoalToggle(goal)} 
+                    <SelectionButton
+                      key={goal} label={goal}
+                      selected={registerData.goals.includes(goal)}
+                      onClick={() => handleGoalToggle(goal)}
                     />
                   ))}
                 </div>
@@ -277,10 +287,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                 </h2>
                 <div className="flex flex-col gap-1 mt-4">
                   {habitOptions.map(habit => (
-                    <SelectionButton 
-                      key={habit} label={habit} 
-                      selected={registerData.importantHabit === habit} 
-                      onClick={() => { setRegisterData({...registerData, importantHabit: habit}); handleNext(); }} 
+                    <SelectionButton
+                      key={habit} label={habit}
+                      selected={registerData.importantHabit === habit}
+                      onClick={() => { setRegisterData({ ...registerData, importantHabit: habit }); handleNext(); }}
                     />
                   ))}
                 </div>
@@ -294,10 +304,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                 </h2>
                 <div className="flex flex-col gap-1 mt-4">
                   {mealPlanningOptions.map(option => (
-                    <SelectionButton 
-                      key={option} label={option} 
-                      selected={registerData.mealPlanning === option} 
-                      onClick={() => { setRegisterData({...registerData, mealPlanning: option}); handleNext(); }} 
+                    <SelectionButton
+                      key={option} label={option}
+                      selected={registerData.mealPlanning === option}
+                      onClick={() => { setRegisterData({ ...registerData, mealPlanning: option }); handleNext(); }}
                     />
                   ))}
                 </div>
@@ -311,10 +321,10 @@ const AuthModal = ({ isOpen, onClose }) => {
                 </h2>
                 <div className="flex flex-col gap-1 mt-4">
                   {activityOptions.map(option => (
-                    <SelectionButton 
-                      key={option.value} label={option.label} 
-                      selected={registerData.activityLevel === option.value} 
-                      onClick={() => { setRegisterData({...registerData, activityLevel: option.value}); handleNext(); }} 
+                    <SelectionButton
+                      key={option.value} label={option.label}
+                      selected={registerData.activityLevel === option.value}
+                      onClick={() => { setRegisterData({ ...registerData, activityLevel: option.value }); handleNext(); }}
                     />
                   ))}
                 </div>
@@ -413,7 +423,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                   <div>
                     <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold">Password</label>
                     <input
-                      type="password" name="password" value={registerData.password} onChange={handleRegisterChange} required
+                      type={showPassword ? "text" : "password"} name="password" value={registerData.password} onChange={handleRegisterChange} required
                       className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-2 text-brand-dark"
                       placeholder="••••••••"
                     />
@@ -421,12 +431,21 @@ const AuthModal = ({ isOpen, onClose }) => {
                   <div>
                     <label className="block text-brand-green font-bold mb-1 ml-2 text-sm font-bold">Confirm</label>
                     <input
-                      type="password" name="confirmPassword" value={registerData.confirmPassword} onChange={handleRegisterChange} required
+                      type={showPassword ? "text" : "password"} name="confirmPassword" value={registerData.confirmPassword} onChange={handleRegisterChange} required
                       className="w-full bg-white border-2 border-brand-green/30 rounded-full px-4 py-2 text-brand-dark"
                       placeholder="••••••••"
                     />
                   </div>
                 </div>
+                <label className="flex items-center gap-2 ml-2 text-brand-green text-xs font-bold cursor-pointer">
+                  <input 
+                    type="checkbox" 
+                    checked={showPassword} 
+                    onChange={() => setShowPassword(!showPassword)} 
+                    className="w-4 h-4 rounded accent-brand-green"
+                  />
+                  Show password
+                </label>
                 {error && <p className="text-red-500 text-sm italic font-bold text-center mt-2">{error}</p>}
                 <button type="submit" className="btn-primary w-full mt-6 py-4 rounded-full text-xl">Complete Registration</button>
               </form>
